@@ -72,8 +72,8 @@ public class SudokuState
 
     private boolean isValueInSubGrid(int value, int row, int col) 
     {
-        int subGridRow= row / 3,
-            subGridCol = col / 3;
+        int subGridRow= row - row % 3,
+            subGridCol = col - col % 3;
 
         for (int i = subGridRow; i <= subGridRow + 2; i++) 
         {
@@ -81,10 +81,12 @@ public class SudokuState
             {
                 if (this.board[i][j] == value)
                 {
+                    System.out.println(subGridRow + " " + subGridCol);
                     return true;
                 }
             }
         }
+        
         return false;
     }
 
@@ -184,9 +186,23 @@ public class SudokuState
 
     public boolean isValidAction(int row, int column, int value)
     {
-        return  !isValueInRow(value, row) &&
+        if (isValueInRow(value, row)) {
+            System.out.println("FALHOU POR CAUSA DA ROW");
+            return false;
+        } else if (isValueInCol(value, column)) {
+            System.out.println("FALHOU POR CAUSA DA COLUMN");
+            return false;
+
+        } else if (isValueInSubGrid(value, row, column)) {
+            System.out.println("FALHOU POR CAUSA DA GRID");
+            return false;
+        }
+
+        return true;
+
+        /* return  !isValueInRow(value, row) &&
                 !isValueInCol(value, column) &&
-                !isValueInSubGrid(value, row, column);
+                !isValueInSubGrid(value, row, column); */
     }
 
     public SudokuState generateNextState(int row, int column, int value)
@@ -218,7 +234,7 @@ public class SudokuState
         for (int row = 0; row < N; row++)
         {
             // HACK
-            int limite = 50;
+            int limite = 10000;
             if (iteracoes >= limite) break;
 
             for (int col = 0; col < N; col++)
