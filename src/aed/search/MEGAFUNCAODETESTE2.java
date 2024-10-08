@@ -1,9 +1,5 @@
 package aed.search;
 
-import java.util.ArrayList;
-import java.util.List;
-
-// import aed.search.SudokuState;
 
 public class MEGAFUNCAODETESTE2 {
     public static void main(String[] args) {
@@ -19,18 +15,27 @@ public class MEGAFUNCAODETESTE2 {
             {0,0,0, 0,0,0, 0,0,0}
         };
 
+        /* int[][] board = {
+            {0,3,0, 0,0,6, 0,1,8},
+            {0,6,0, 2,0,0, 0,4,7},
+            {9,1,7, 0,0,0, 0,0,0},
+            {4,0,0, 0,7,9, 0,0,1},
+            {0,5,0, 0,2,0, 0,9,0},
+            {6,0,0, 4,1,0, 0,0,2},
+            {0,0,0, 0,0,0, 6,2,9},
+            {3,7,0, 0,0,2, 0,8,0},
+            {5,2,0, 9,0,0, 0,7,0}
+        }; */
+
         SudokuState sudoku = new SudokuState(board);
 
 
-        List list = sudoku.generateValidNextStates();
+        SudokuState solucao = SudokuState.backtrackingSearch(sudoku);
 
-        for (Object s: list)
-        {
-            //System.out.println(">>>>>>>>>>>>>>>>>>>\n\n" + s.toString());
-        } 
-
-        //sudoku = sudoku.generateNextState(0, 3, 7);
-
-        //System.out.println(sudoku.toString());
+        if (solucao == null) {
+            System.out.println("nao deu para resolver");
+        } else {
+            System.out.println(solucao.toString());
+        }
     }
 }

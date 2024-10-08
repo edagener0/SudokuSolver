@@ -1,12 +1,6 @@
 package aed.search;
 
-// apple -> 🍎
-
-// don't forget to place this file in the right folder according to the package definition
-// it should be .../src/aed/search
-
 import java.util.List;
-
 import java.util.ArrayList;
 
 import aed.collections.StackList;
@@ -16,35 +10,27 @@ public class SudokuState
     private static final int N = 9;
     private int[][] board;
 
-    /* private boolean[][] rows;
-    private boolean[][] cols;
-    private boolean[][] subGrids; */
 
-    // you can add additional parameters (including internal classes), if needed
-
-
+    /**
+     * Construtor do objeto {@code SudokuState}.
+     * 
+     * @param board - {@code int[][]} que indica os números e as posições de cada dígito de um tabuleiro Sudoku.
+     */
     public SudokuState(int[][] board)
     {
         this.board = board;
-
-        //this.rows = new boolean[N][9];
-        //this.cols = new boolean[N][9];
-        //this.subGrids = new boolean[N][9];
     }
 
-    /* public SudokuState(int[][] board, boolean[][] rows, boolean[][] cols, boolean[][] subGrids) {
-        this.board = board;
-        
-        this.rows = rows;
-        this.cols = cols;
-        this.subGrids = subGrids;
-    } */
 
-    // this method is here for testing purposes
+    /**
+     * 
+     * @return Retorna 
+     */
     public int[][] getBoard()
     {
         return this.board;
     }
+
 
     private boolean isValueInRow(int value, int row)
     {
@@ -58,6 +44,7 @@ public class SudokuState
         return false;
     }
 
+
     private boolean isValueInCol(int value, int col)
     {
         for (int i = 0; i < N; i++)
@@ -70,6 +57,7 @@ public class SudokuState
         return false;
     }
 
+
     private boolean isValueInSubGrid(int value, int row, int col) 
     {
         int subGridRow= row - row % 3,
@@ -81,7 +69,6 @@ public class SudokuState
             {
                 if (this.board[i][j] == value)
                 {
-                    System.out.println(subGridRow + " " + subGridCol);
                     return true;
                 }
             }
@@ -90,65 +77,12 @@ public class SudokuState
         return false;
     }
 
-    private boolean isValidRow(int row)
-    {
-        boolean[] digits_present = new boolean[N];
 
-        for (int col = 0; col < N; col++)
-        {
-            int digit = this.board[row][col] - 1;
-            
-            if (digits_present[digit])
-            {
-                return false;
-            }
-
-            digits_present[digit] = true;
-        }
-
-        return true;
-    }
-
-    private boolean isValidCol(int col)
-    {
-        boolean[] digitsPresent = new boolean[N];
-        
-        for (int row = 0; row < N; row++)
-        {
-            int digit = this.board[row][col] - 1;
-
-            if (digitsPresent[digit]) return false;
-
-            digitsPresent[digit] = true;
-        }
-
-        return true;
-    }
-
-    private boolean isValidSquare(int row, int col)
-    {
-        boolean[] digitsPresent = new boolean[9];
-        int subGridRow = row / 3;
-        int subGridCol = col / 3;
-
-        for (int i = subGridRow; i <= subGridRow + 2; i++)
-        {
-            for (int j = subGridCol; j <= subGridCol  + 2; j++)
-            {
-                int digit = this.board[i][j] - 1;
-
-                if (digitsPresent[digit])
-                {
-                    return false;
-                }
-
-                digitsPresent[digit] = true;
-            }
-        }
-
-        return true;
-    }
-
+    /**
+     * Verifica se o tabuleiro atual é uma solução possível para o jogo Sudoku.
+     * 
+     * @return Retorna {@code true} caso o tabuleiro atual seja uma solução possível para o jogo Sudoku, caso contrário é retornado {@code false}.
+     */
     public boolean isSolution()
     {
         boolean[][] rows = new boolean[N][9];
@@ -159,23 +93,21 @@ public class SudokuState
         {
             for (int col = 0; col < N; col++)
             {
-                int digit = this.board[row][col] - 1;
+                int digit = this.board[row][col];
 
                 // Caso existe alguma célula vazia então não é solução.
-                if (digit == 0) return false;
+                if (digit-- == 0) return false;
 
                 int subGridIndex = (row / 3) * 3 + col / 3;
 
                 // Verifique se o número está presente na linha, coluna ou sub-grelha atual.
                 // Se o número estiver presente, a solução é inválida.
-
                 if (rows[row][digit] || cols[col][digit] || subGrids[subGridIndex][digit])
                 {
                     return false;
                 }
 
                 // Marcar a presença do digito na linha, coluna e sub-grelha atuais.
-
                 rows[row][digit] = true;
                 cols[col][digit] = true;
                 subGrids[subGridIndex][digit] = true;
@@ -184,27 +116,31 @@ public class SudokuState
         return true;
     }
 
+
+    /**
+     * Método que verifica se uma posição do tabuleiro de Sudoku é válida.
+     *
+     * @param row - Linha do tabuleiro.
+     * @param column - Coluna do tabuleiro.
+     * @param value - Valor a ser colocado no tabuleiro.
+     * @return Retorna {@code true} caso a posição seja válida, caso contrário retorna {@code false}.
+     */
     public boolean isValidAction(int row, int column, int value)
     {
-        if (isValueInRow(value, row)) {
-            System.out.println("FALHOU POR CAUSA DA ROW");
-            return false;
-        } else if (isValueInCol(value, column)) {
-            System.out.println("FALHOU POR CAUSA DA COLUMN");
-            return false;
-
-        } else if (isValueInSubGrid(value, row, column)) {
-            System.out.println("FALHOU POR CAUSA DA GRID");
-            return false;
-        }
-
-        return true;
-
-        /* return  !isValueInRow(value, row) &&
+        return  !isValueInRow(value, row) &&
                 !isValueInCol(value, column) &&
-                !isValueInSubGrid(value, row, column); */
+                !isValueInSubGrid(value, row, column);
     }
 
+
+    /**
+     * Método que tenta colocar um valor numa determinada coordenada do tabuleiro de Sudoku.
+     *
+     * @param row - Linha do tabuleiro.
+     * @param column - Coluna do tabuleiro.
+     * @param value - Valor a ser colocado no tabuleiro.
+     * @return Retorna um novo objeto com o valor colocado nas coordenadas especificadas. Retorna null caso não seja possível colocar o valor no tabuleiro de Sudoku.
+     */
     public SudokuState generateNextState(int row, int column, int value)
     {
         if (isValidAction(row, column, value))
@@ -213,80 +149,108 @@ public class SudokuState
             newBoard[row][column] = value;
             SudokuState newState = new SudokuState(newBoard);
 
-            // HACK
-            System.out.println("VALIDO -> " + value + " (" + row + "," + column + ")");
-            System.out.println(this.toString());
             return newState;
         }
 
-        // HACK
-        System.out.println("INVALIDO -> " + value + " (" + row + "," + column + ")");
-        System.out.println(this.toString());
-        return this;
+        return null;
     }
 
+
+    /**
+     * Método que tenta preencher a próxima casa vazia com um dígito. A próxima casa vazia é determinada percorrendo o tabuleiro da esquerda para a direita, e de cima para baixo.
+     *
+     * @return Retorna uma lista com todos os estados válidos resultantes de se escolher a próxima casa vazia. Caso não existam ações válidas, será retornada uma lista vazia.
+     */
     public List<SudokuState> generateValidNextStates()
     {
-        // HACK 
-        int iteracoes = 0;
-
         List<SudokuState> sudokuStates = new ArrayList<>();
-        for (int row = 0; row < N; row++)
-        {
-            // HACK
-            int limite = 10000;
-            if (iteracoes >= limite) break;
 
-            for (int col = 0; col < N; col++)
-            {
-                // HACK
-                if (iteracoes >= limite) break;
-
+        for (int row = 0; row < N; row++) {
+            for (int col = 0; col < N; col++) {
                 int digit = this.board[row][col];
-                // Caso não seja um espaço vazio não há nada a fazer
-                if (digit != 0) continue;
-
-                for (int d = 1; d <= 9; d++)
-                {
-                    SudokuState nextState = generateNextState(row, col, d);
-                    sudokuStates.add(nextState);
-
-                    // HACK
-                    //System.out.println("( " + row + " , " + col + " ) testando: " + d);
-                    iteracoes++;
-                    if (nextState.getBoard()[row][col] != 0) break;
+                if (digit != 0) {
+                    continue;
                 }
+
+                for (int d = 1; d <= 9; d++) {
+                    SudokuState nextState = generateNextState(row, col, d);
+                    if (nextState == null) {
+                        continue;
+                    }
+                    sudokuStates.add(nextState.clone());
+                    //if (nextState.getBoard()[row][col] != 0) break;
+                }
+                return sudokuStates;
             }
         }
-        // HACK
-        System.out.println(iteracoes);
 
         return sudokuStates;
     }
 
+
+    /**
+     * Método estático para realizar a busca por retrocesso (Backtracking) no estado do Sudoku.
+     *
+     * @param initialState - Estado atual do Sudoku.
+     * @return Retorna a solução encontrada. Null caso não seja encontrada uma solução.
+     */
     public static SudokuState backtrackingSearch(SudokuState initialState)
     {
-        // TODO: implement this method
+        StackList<SudokuState> stack = new StackList<SudokuState>();
+
+        stack.push(initialState);
+
+        while (stack.size() > 0)
+        {
+            SudokuState lastState = stack.peek();
+            boolean solved = lastState.isSolution();
+
+            if (!solved)
+            {
+                List<SudokuState> nextStages = stack.pop().generateValidNextStates();
+
+                if (nextStages.size() > 0)
+                {
+                    for (SudokuState i : nextStages)
+                    {
+                        stack.push(i);
+                        // System.out.println(/* "stack size: " + stack.size() +  */"\n" + i.toString());
+                    }
+                }
+            }
+            else
+            {
+                return lastState.clone();
+            }
+        }
+
         return null;
     }
 
+
+    /**
+     * Método usado para criar cópias profundas.
+     *
+     * @return Retorna uma cópia profunda do objeto SudokuState.
+     */
     public SudokuState clone()
     {
-        // you can use this method if needed
         int[][] newBoard = this.board.clone();
-        // we need to be careful when copying bidimentional arrays. We need to do this:
         for (int i = 0; i < N; i++)
         {
             newBoard[i] = this.board[i].clone();
         }
         SudokuState newState = new SudokuState(newBoard);
 
-        // copy/initialize additional parameters, if needed
-
         return newState;
     }
 
-    // method useful for debugging and testing purposes
+
+    /**
+     * Método usado para transformar {@code SudokuState} em uma {@code String}.
+     *
+     * @return Retorna uma {@code String} do tabuleiro de Sudoku.
+     */
     public String toString()
     {
         String s = "";
@@ -314,5 +278,4 @@ public class SudokuState
         s += "----------------------\n";
         return s;
     }
-    
 }
