@@ -1,6 +1,8 @@
 package aed.collections;
 
 import java.util.Iterator;
+import java.util.List;
+
 
 public class StackList<T> implements IStack<T>
 {
@@ -119,18 +121,62 @@ public class StackList<T> implements IStack<T>
 
 
 	// função main utilizada para testes, coloque os testes efetuados aqui
+
+	private static double testStack(IStack<Integer> stack, int totalTrials, int testSampleSize)
+	{
+
+		double totalTime = 0;
+
+		for (int i = 0; i < totalTrials; i++)
+		{
+			long startTime = System.nanoTime();
+
+			for (int j = 0; j < testSampleSize; j++)
+			{
+				stack.push(j);
+			}
+
+			for (int j = 0; j < testSampleSize / 2; j++)
+			{
+				stack.pop();
+			}
+
+			for (int j = 0; j < testSampleSize / 2; j++)
+			{
+				stack.push(j);
+			}
+
+			for (int j = 0; j < testSampleSize; j++)
+			{
+				stack.pop();
+			}
+
+			long endTime = System.nanoTime();
+			totalTime = totalTime + (endTime - startTime) / 1000000000.0;
+		}
+
+		return totalTime / totalTrials;
+
+
+	}
 	public static void main(String[] args)
 	{
-		long start = System.nanoTime();
-		StackList<Integer> stack = new StackList<Integer>();
-		stack.push(3);
-		stack.push(5);
-		// StackList<Integer> stack2 = stack.shallowCopy();
-		stack.push(6);
-		stack.push(7);
-		stack.pop();
-		System.out.println(stack.peek());
-		long end = System.nanoTime();
-		System.out.println("Time Elapsed: " + (end - start) / 1000000000.0);
+		int totalTrials = 50;
+
+		int testSampleSize = 1000;
+
+		double stackListTimeForN = testStack(new StackList<Integer>(), totalTrials, testSampleSize);
+		double stackListTimeFor2N = testStack(new StackList<Integer>(), totalTrials, testSampleSize * 2);
+		
+		 
+		//System.out.println(stackListTimeForN + " " + stackListTimeFor2N + " " + razaoStackList);
+		
+		double shittyStackListForN = testStack(new ShittyStack<Integer>(), totalTrials, testSampleSize);
+		double shittyStackListFor2N = testStack(new ShittyStack<Integer>(), totalTrials, testSampleSize * 2);
+
+		double razaoStackList = stackListTimeFor2N / stackListTimeForN;
+		double razaoShittyStackList = shittyStackListFor2N / shittyStackListForN;
+
+		System.out.println("Razao Dobrada do ShittyStack: " + razaoShittyStackList + "\n" +  "Razao dobrada da StackList: " + razaoStackList);
 	}
 }

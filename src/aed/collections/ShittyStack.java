@@ -45,7 +45,7 @@ public class ShittyStack<T> implements IStack<T>
     public void push(T item)
     {
         this.size++;
-        if (this.size > this.items.length)
+        if (this.size == this.items.length)
         {
             resize(this.items.length * 2);
         }

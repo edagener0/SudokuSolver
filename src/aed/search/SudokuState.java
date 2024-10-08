@@ -2,7 +2,8 @@ package aed.search;
 
 import java.util.List;
 import java.util.ArrayList;
-
+import aed.collections.IStack;
+import aed.collections.ShittyStack;
 import aed.collections.StackList;
 
 public class SudokuState
@@ -14,7 +15,8 @@ public class SudokuState
     /**
      * Construtor do objeto {@code SudokuState}.
      * 
-     * @param board - {@code int[][]} que indica os números e as posições de cada dígito de um tabuleiro Sudoku.
+     * @param board - {@code int[][]} que indica os números e as posições de cada dígito de um
+     *        tabuleiro Sudoku.
      */
     public SudokuState(int[][] board)
     {
@@ -24,7 +26,7 @@ public class SudokuState
 
     /**
      * 
-     * @return Retorna 
+     * @return Retorna
      */
     public int[][] getBoard()
     {
@@ -58,12 +60,11 @@ public class SudokuState
     }
 
 
-    private boolean isValueInSubGrid(int value, int row, int col) 
+    private boolean isValueInSubGrid(int value, int row, int col)
     {
-        int subGridRow= row - row % 3,
-            subGridCol = col - col % 3;
+        int subGridRow = row - row % 3, subGridCol = col - col % 3;
 
-        for (int i = subGridRow; i <= subGridRow + 2; i++) 
+        for (int i = subGridRow; i <= subGridRow + 2; i++)
         {
             for (int j = subGridCol; j <= subGridCol + 2; j++)
             {
@@ -73,7 +74,7 @@ public class SudokuState
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -81,7 +82,8 @@ public class SudokuState
     /**
      * Verifica se o tabuleiro atual é uma solução possível para o jogo Sudoku.
      * 
-     * @return Retorna {@code true} caso o tabuleiro atual seja uma solução possível para o jogo Sudoku, caso contrário é retornado {@code false}.
+     * @return Retorna {@code true} caso o tabuleiro atual seja uma solução possível para o jogo
+     *         Sudoku, caso contrário é retornado {@code false}.
      */
     public boolean isSolution()
     {
@@ -96,7 +98,8 @@ public class SudokuState
                 int digit = this.board[row][col];
 
                 // Caso existe alguma célula vazia então não é solução.
-                if (digit-- == 0) return false;
+                if (digit-- == 0)
+                    return false;
 
                 int subGridIndex = (row / 3) * 3 + col / 3;
 
@@ -123,13 +126,13 @@ public class SudokuState
      * @param row - Linha do tabuleiro.
      * @param column - Coluna do tabuleiro.
      * @param value - Valor a ser colocado no tabuleiro.
-     * @return Retorna {@code true} caso a posição seja válida, caso contrário retorna {@code false}.
+     * @return Retorna {@code true} caso a posição seja válida, caso contrário retorna
+     *         {@code false}.
      */
     public boolean isValidAction(int row, int column, int value)
     {
-        return  !isValueInRow(value, row) &&
-                !isValueInCol(value, column) &&
-                !isValueInSubGrid(value, row, column);
+        return !isValueInRow(value, row) && !isValueInCol(value, column)
+                && !isValueInSubGrid(value, row, column);
     }
 
 
@@ -139,7 +142,8 @@ public class SudokuState
      * @param row - Linha do tabuleiro.
      * @param column - Coluna do tabuleiro.
      * @param value - Valor a ser colocado no tabuleiro.
-     * @return Retorna um novo objeto com o valor colocado nas coordenadas especificadas. Retorna null caso não seja possível colocar o valor no tabuleiro de Sudoku.
+     * @return Retorna um novo objeto com o valor colocado nas coordenadas especificadas. Retorna
+     *         null caso não seja possível colocar o valor no tabuleiro de Sudoku.
      */
     public SudokuState generateNextState(int row, int column, int value)
     {
@@ -157,34 +161,72 @@ public class SudokuState
 
 
     /**
-     * Método que tenta preencher a próxima casa vazia com um dígito. A próxima casa vazia é determinada percorrendo o tabuleiro da esquerda para a direita, e de cima para baixo.
+     * Método que tenta preencher a próxima casa vazia com um dígito. A próxima casa vazia é
+     * determinada percorrendo o tabuleiro da esquerda para a direita, e de cima para baixo.
      *
-     * @return Retorna uma lista com todos os estados válidos resultantes de se escolher a próxima casa vazia. Caso não existam ações válidas, será retornada uma lista vazia.
+     * @return Retorna uma lista com todos os estados válidos resultantes de se escolher a próxima
+     *         casa vazia. Caso não existam ações válidas, será retornada uma lista vazia.
      */
     public List<SudokuState> generateValidNextStates()
     {
         List<SudokuState> sudokuStates = new ArrayList<>();
 
-        for (int row = 0; row < N; row++) {
-            for (int col = 0; col < N; col++) {
+        for (int row = 0; row < N; row++)
+        {
+            for (int col = 0; col < N; col++)
+            {
                 int digit = this.board[row][col];
-                if (digit != 0) {
+                if (digit != 0)
+                {
                     continue;
                 }
 
-                for (int d = 1; d <= 9; d++) {
+                for (int d = 1; d <= 9; d++)
+                {
                     SudokuState nextState = generateNextState(row, col, d);
-                    if (nextState == null) {
+                    if (nextState == null)
+                    {
                         continue;
                     }
                     sudokuStates.add(nextState.clone());
-                    //if (nextState.getBoard()[row][col] != 0) break;
+                    // if (nextState.getBoard()[row][col] != 0) break;
                 }
                 return sudokuStates;
             }
         }
 
         return sudokuStates;
+    }
+
+
+    private static SudokuState backtrackingSearch(SudokuState initialState,
+            IStack<SudokuState> stack)
+    {
+        stack.push(initialState);
+
+        while (!stack.isEmpty())
+        {
+            SudokuState lastState = stack.peek();
+            boolean solved = lastState.isSolution();
+
+            if (solved)
+                return lastState.clone();
+
+            List<SudokuState> nextStages = stack.pop().generateValidNextStates();
+
+            if (nextStages.size() > 0)
+            {
+                for (SudokuState i : nextStages)
+                {
+                    stack.push(i);
+                }
+            }
+
+
+        }
+
+        return null;
+
     }
 
 
@@ -196,35 +238,7 @@ public class SudokuState
      */
     public static SudokuState backtrackingSearch(SudokuState initialState)
     {
-        StackList<SudokuState> stack = new StackList<SudokuState>();
-
-        stack.push(initialState);
-
-        while (stack.size() > 0)
-        {
-            SudokuState lastState = stack.peek();
-            boolean solved = lastState.isSolution();
-
-            if (!solved)
-            {
-                List<SudokuState> nextStages = stack.pop().generateValidNextStates();
-
-                if (nextStages.size() > 0)
-                {
-                    for (SudokuState i : nextStages)
-                    {
-                        stack.push(i);
-                        // System.out.println(/* "stack size: " + stack.size() +  */"\n" + i.toString());
-                    }
-                }
-            }
-            else
-            {
-                return lastState.clone();
-            }
-        }
-
-        return null;
+        return SudokuState.backtrackingSearch(initialState, new StackList<SudokuState>());
     }
 
 
@@ -277,5 +291,63 @@ public class SudokuState
         }
         s += "----------------------\n";
         return s;
+    }
+
+
+    private static double[] testBacktrace(int totalTrials, int[][] board)
+    {
+        long startTime, endTime;
+        double[] times = new double[2];
+        double totalTimeShittyStack = 0;
+        double totalTimeStackList = 0;
+
+        for (int i = 0; i < totalTrials; i++)
+        {
+            startTime = System.nanoTime();
+            SudokuState.backtrackingSearch(new SudokuState(board), new StackList<SudokuState>());
+            endTime = System.nanoTime();
+            totalTimeStackList = totalTimeStackList + (endTime - startTime) / 1000000000.0;
+
+            startTime = System.nanoTime();
+            SudokuState.backtrackingSearch(new SudokuState(board), new ShittyStack<SudokuState>());
+            endTime = System.nanoTime();
+            totalTimeShittyStack =  totalTimeShittyStack + (endTime - startTime) / 1000000000.0;
+        }
+        
+
+        times[0] = totalTimeStackList / totalTrials;
+        times[1] = totalTimeShittyStack / totalTrials;
+
+        return times;
+
+    }
+
+
+    public static void main(String[] args)
+    {
+        int[][] board =
+        {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        
+        int totalTrials = 50;
+        double[] testsForN = SudokuState.testBacktrace(totalTrials, board);
+
+        double testStackListForN = testsForN[0];
+        double testShittyStackForN = testsForN[1];
+
+        System.out.println("TestStackListForN: " + testStackListForN + "\nTestShittyStack: " + testShittyStackForN);
+        //double testsfor2N = SudokuState.testBacktrace(board);
+        
+        // TODO calcular testes para 2N de complexidade
+        //TODO calcular razao dobrada
+
     }
 }
