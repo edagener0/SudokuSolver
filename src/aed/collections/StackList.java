@@ -1,7 +1,6 @@
 package aed.collections;
 
 import java.util.Iterator;
-import java.util.List;
 
 
 public class StackList<T> implements IStack<T>
@@ -17,6 +16,7 @@ public class StackList<T> implements IStack<T>
 			this.next = next;
 		}
 	}
+
 
 	private class StackListIterator implements Iterator<T>
 	{
@@ -56,11 +56,13 @@ public class StackList<T> implements IStack<T>
 		this.size = 0;
 	}
 
+
 	// @Override
 	public int size()
 	{
 		return this.size;
 	}
+
 
 	@Override
 	//@SuppressWarnings("unchecked")
@@ -74,19 +76,22 @@ public class StackList<T> implements IStack<T>
 		return stackListShallowCopy;
 	}
 
+
 	@Override
 	public boolean isEmpty()
 	{
 		return this.size <= 0;
 	}
 
+
 	@Override
 	public void push(T item)
 	{
 		Node newNode = new Node(item, list);
 		this.list = newNode;
-		size++;
+		this.size++;
 	}
+
 
 	@Override
 	public T pop()
@@ -98,9 +103,10 @@ public class StackList<T> implements IStack<T>
 
 		T item = this.list.item;
 		this.list = this.list.next;
-		size--;
+		this.size--;
 		return item;
 	}
+
 
 	@Override
 	public T peek()
@@ -113,6 +119,7 @@ public class StackList<T> implements IStack<T>
 		return this.list.item;
 	}
 
+
 	@Override
 	public Iterator<T> iterator()
 	{
@@ -120,11 +127,8 @@ public class StackList<T> implements IStack<T>
 	}
 
 
-	// função main utilizada para testes, coloque os testes efetuados aqui
-
 	private static double testStack(IStack<Integer> stack, int totalTrials, int testSampleSize)
 	{
-
 		double totalTime = 0;
 
 		for (int i = 0; i < totalTrials; i++)
@@ -156,9 +160,9 @@ public class StackList<T> implements IStack<T>
 		}
 
 		return totalTime / totalTrials;
-
-
 	}
+
+
 	public static void main(String[] args)
 	{
 		int totalTrials = 50;
@@ -167,9 +171,6 @@ public class StackList<T> implements IStack<T>
 
 		double stackListTimeForN = testStack(new StackList<Integer>(), totalTrials, testSampleSize);
 		double stackListTimeFor2N = testStack(new StackList<Integer>(), totalTrials, testSampleSize * 2);
-		
-		 
-		//System.out.println(stackListTimeForN + " " + stackListTimeFor2N + " " + razaoStackList);
 		
 		double shittyStackListForN = testStack(new ShittyStack<Integer>(), totalTrials, testSampleSize);
 		double shittyStackListFor2N = testStack(new ShittyStack<Integer>(), totalTrials, testSampleSize * 2);

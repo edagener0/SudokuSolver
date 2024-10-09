@@ -2,9 +2,11 @@ package aed.search;
 
 import java.util.List;
 import java.util.ArrayList;
+
 import aed.collections.IStack;
 import aed.collections.ShittyStack;
 import aed.collections.StackList;
+
 
 public class SudokuState
 {
@@ -199,17 +201,15 @@ public class SudokuState
     }
 
 
-    private static SudokuState backtrackingSearch(SudokuState initialState,
-            IStack<SudokuState> stack)
+    private static SudokuState backtrackingSearch(SudokuState initialState, IStack<SudokuState> stack)
     {
         stack.push(initialState);
 
         while (!stack.isEmpty())
         {
             SudokuState lastState = stack.peek();
-            boolean solved = lastState.isSolution();
 
-            if (solved)
+            if (lastState.isSolution())
                 return lastState.clone();
 
             List<SudokuState> nextStages = stack.pop().generateValidNextStates();
@@ -221,12 +221,9 @@ public class SudokuState
                     stack.push(i);
                 }
             }
-
-
         }
 
         return null;
-
     }
 
 
