@@ -1,0 +1,18 @@
+#sudoku-grid {
+    border: 2px solid #440000;
+}
+
+.cell-input {
+    color: #000000;
+    border: 0;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    background-color: #33ffff;
+}
+
+
+.cell-input:disabled {
+    background-color: #ff21ee;
+}
