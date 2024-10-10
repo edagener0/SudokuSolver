@@ -52,4 +52,8 @@ public class Board extends JPanel {
             }
         }
     }
+
+    public void resetBoard() {
+        setBoard(new int[9][9]);
+    }
 }

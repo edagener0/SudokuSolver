@@ -63,11 +63,19 @@ public class Solver {
         }
     }
 
+    public void reset() {
+        this.window.resetBoard();
+    }
+
     public void run(String[] args) {
         this.window = new Window(500);
 
         window.setCheckButtonFunction(e -> {
             this.solve();
+        });
+
+        window.setResetButtonFunction(e -> {
+            this.reset();
         });
 
         window.setVisible(true);

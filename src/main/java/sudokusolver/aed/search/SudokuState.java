@@ -37,8 +37,13 @@ public class SudokuState
     }
 
 
-    private void setCell(int row, int column, int value) {
+    public void setCell(int row, int column, int value) {
         this.board[row][column] = value;
+    }
+
+
+    public int getCell(int row, int column) {
+        return this.board[row][column];
     }
 
 
@@ -84,6 +89,24 @@ public class SudokuState
         }
 
         return false;
+    }
+
+
+    private static boolean isBoardValid(int[][] board) {
+        SudokuState tempState = new SudokuState(board);
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                int digit = tempState.getCell(i, j);
+                if (digit == 0) {
+                    continue;
+                }
+
+                if (!tempState.isValidAction(i, j, digit)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -218,6 +241,10 @@ public class SudokuState
 
     private static SudokuState backtrackingSearch(SudokuState initialState, IStack<SudokuState> stack)
     {
+        if (!isBoardValid(initialState.getBoard())) {
+            return null;
+        }
+
         stack.push(initialState);
 
         while (!stack.isEmpty())

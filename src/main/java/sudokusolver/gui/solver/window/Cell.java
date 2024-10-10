@@ -27,7 +27,11 @@ public class Cell extends JTextField {
     }
 
     public void setNumber(int number) {
-        this.setText(String.format("%d", number));
+        if (number == 0) {
+            this.setText("");
+        } else {
+            this.setText(String.format("%d", number));
+        }
     }
 
     public int getNumber() throws InvalidDigit {
