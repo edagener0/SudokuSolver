@@ -1,0 +1,17 @@
+main/java/sudokusolver/gui/solver/window/MsgBox.class
+main/java/sudokusolver/aed/collections/ShittyStack$ShittyStackIterator.class
+main/java/sudokusolver/aed/search/MEGAFUNCAODETESTE2.class
+main/java/sudokusolver/aed/collections/StackList.class
+main/java/sudokusolver/aed/collections/StackList$StackListIterator.class
+main/java/sudokusolver/gui/Main.class
+main/java/sudokusolver/gui/solver/window/Cell.class
+main/java/sudokusolver/aed/collections/StackList$Node.class
+main/java/sudokusolver/gui/solver/Solver.class
+main/java/sudokusolver/gui/solver/window/Board.class
+main/java/sudokusolver/aed/collections/ShittyStack.class
+main/java/sudokusolver/aed/collections/IStack.class
+main/java/sudokusolver/gui/solver/window/Window.class
+main/java/sudokusolver/gui/solver/exception/InvalidDigit.class
+main/java/sudokusolver/gui/solver/window/Button.class
+main/java/sudokusolver/gui/solver/exception/InvalidBoard.class
+main/java/sudokusolver/aed/search/SudokuState.class
