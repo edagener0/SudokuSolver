@@ -2,7 +2,6 @@ package aed.collections;
 
 import java.util.Iterator;
 
-
 public class StackList<T> implements IStack<T>
 {
 	private class Node

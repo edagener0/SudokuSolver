@@ -17,6 +17,18 @@ public class MEGAFUNCAODETESTE2
             {0,0,0, 0,0,0, 0,0,0},
             {0,0,0, 0,0,0, 0,0,0}};
 
+        /* int[][] board =
+        {
+            {9,8,7, 6,5,4, 3,2,1},
+            {6,5,4, 3,2,1, 9,8,7},
+            {3,2,1, 9,8,7, 6,5,4},
+            {8,9,6, 7,4,5, 2,1,3},
+            {7,4,5, 2,1,3, 8,9,6},
+            {2,1,3, 8,9,6, 7,4,5},
+            {5,7,9, 4,6,8, 1,3,2},
+            {4,6,8, 1,3,2, 5,7,9},
+            {1,3,2, 5,7,9, 4,6,0}}; */
+
         /*
          * int[][] board = {
          * {0,3,0, 0,0,6, 0,1,8},
@@ -43,5 +55,9 @@ public class MEGAFUNCAODETESTE2
         {
             System.out.println(solucao.toString());
         }
+
+        /* SudokuState solucao = sudoku.generateNextState(8, 8, 8);
+
+        System.out.println(solucao.toString()); */
     }
 }

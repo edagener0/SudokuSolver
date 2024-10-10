@@ -36,6 +36,11 @@ public class SudokuState
     }
 
 
+    private void setCell(int row, int column, int value) {
+        this.board[row][column] = value;
+    }
+
+
     private boolean isValueInRow(int value, int row)
     {
         for (int i = 0; i < N; i++)
@@ -133,8 +138,9 @@ public class SudokuState
      */
     public boolean isValidAction(int row, int column, int value)
     {
-        return !isValueInRow(value, row) && !isValueInCol(value, column)
-                && !isValueInSubGrid(value, row, column);
+        return !isValueInRow(value, row) &&
+                !isValueInCol(value, column) &&
+                !isValueInSubGrid(value, row, column);
     }
 
 
@@ -149,13 +155,22 @@ public class SudokuState
      */
     public SudokuState generateNextState(int row, int column, int value)
     {
+        SudokuState nextState = this.clone().generateNextStateRetuningNull(row, column, value);
+
+        if (nextState == null) {
+            return this;
+        }
+
+        return nextState;
+    }
+
+
+    private SudokuState generateNextStateRetuningNull(int row, int column, int value) {
         if (isValidAction(row, column, value))
         {
-            int[][] newBoard = this.board;
-            newBoard[row][column] = value;
-            SudokuState newState = new SudokuState(newBoard);
+            this.setCell(row, column, value);
 
-            return newState;
+            return this;
         }
 
         return null;
@@ -185,13 +200,12 @@ public class SudokuState
 
                 for (int d = 1; d <= 9; d++)
                 {
-                    SudokuState nextState = generateNextState(row, col, d);
+                    SudokuState nextState = generateNextStateRetuningNull(row, col, d);
                     if (nextState == null)
                     {
                         continue;
                     }
                     sudokuStates.add(nextState.clone());
-                    // if (nextState.getBoard()[row][col] != 0) break;
                 }
                 return sudokuStates;
             }
