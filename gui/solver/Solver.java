@@ -47,13 +47,13 @@ public class Solver {
             if (this.sudokuState == null) {
                 endTime = System.nanoTime();
                 MsgBox.error("No solution found. 🐳");
-                System.err.println("No solution found. Elapsed time: " + (endTime - startTime));
+                System.err.println("No solution found. Elapsed time: " + (endTime - startTime) / 1000000000);
                 return;
             }
 
             endTime = System.nanoTime();
 
-            System.out.println("Solution found! Elapsed time: " + (endTime - startTime) +
+            System.out.println("Solution found! Elapsed time: " + (endTime - startTime) / 1000000000 +
                     "\nSolution: \n" + this.sudokuState.toString());
 
             this.window.setBoard(this.sudokuState.getBoard());
