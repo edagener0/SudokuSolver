@@ -28,7 +28,7 @@ public class SudokuState
 
     /**
      * 
-     * @return Retorna
+     * @return Retorna um array bidimensional contendo o tabuleiro de Sudoku
      */
     public int[][] getBoard()
     {
