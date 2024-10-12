@@ -37,12 +37,14 @@ public class SudokuState
     }
 
 
-    public void setCell(int row, int column, int value) {
+    public void setCell(int row, int column, int value)
+    {
         this.board[row][column] = value;
     }
 
 
-    public int getCell(int row, int column) {
+    public int getCell(int row, int column)
+    {
         return this.board[row][column];
     }
 
@@ -93,16 +95,21 @@ public class SudokuState
 
 
     // XXX used at line 246
-    private static boolean isBoardValid(int[][] board) {
+    private static boolean isBoardValid(int[][] board)
+    {
         SudokuState tempState = new SudokuState(board);
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
                 int digit = tempState.getCell(i, j);
-                if (digit == 0) {
+                if (digit == 0)
+                {
                     continue;
                 }
 
-                if (!tempState.isValidAction(i, j, digit)) {
+                if (!tempState.isValidAction(i, j, digit))
+                {
                     return false;
                 }
             }
@@ -163,9 +170,8 @@ public class SudokuState
      */
     public boolean isValidAction(int row, int column, int value)
     {
-        return !isValueInRow(value, row) &&
-                !isValueInCol(value, column) &&
-                !isValueInSubGrid(value, row, column);
+        return !isValueInRow(value, row) && !isValueInCol(value, column)
+                && !isValueInSubGrid(value, row, column);
     }
 
 
@@ -182,7 +188,8 @@ public class SudokuState
     {
         SudokuState nextState = this.clone().generateNextStateRetuningNull(row, column, value);
 
-        if (nextState == null) {
+        if (nextState == null)
+        {
             return this;
         }
 
@@ -190,7 +197,8 @@ public class SudokuState
     }
 
 
-    private SudokuState generateNextStateRetuningNull(int row, int column, int value) {
+    private SudokuState generateNextStateRetuningNull(int row, int column, int value)
+    {
         if (isValidAction(row, column, value))
         {
             this.setCell(row, column, value);
@@ -240,12 +248,14 @@ public class SudokuState
     }
 
 
-    private static SudokuState backtrackingSearch(SudokuState initialState, IStack<SudokuState> stack)
+    private static SudokuState backtrackingSearch(SudokuState initialState,
+            IStack<SudokuState> stack)
     {
-        // FIXME function not working properly; if theres only a digit on the board the function returns that the sudoku is unsolvable
-        /* if (!isBoardValid(initialState.getBoard())) {
-            return null;
-        } */
+        // FIXME function not working properly; if theres only a digit on the board the function
+        // returns that the sudoku is unsolvable
+        /*
+         * if (!isBoardValid(initialState.getBoard())) { return null; }
+         */
 
         stack.push(initialState);
 
@@ -337,24 +347,23 @@ public class SudokuState
 
     private static double[] testBacktrace(int totalTrials, int[][] board)
     {
-        long startTime, endTime;
+        
         double[] times = new double[2];
         double totalTimeShittyStack = 0;
         double totalTimeStackList = 0;
 
         for (int i = 0; i < totalTrials; i++)
         {
-            startTime = System.nanoTime();
+            long startTime = System.nanoTime();
             SudokuState.backtrackingSearch(new SudokuState(board), new StackList<SudokuState>());
-            endTime = System.nanoTime();
+            long endTime = System.nanoTime();
             totalTimeStackList = totalTimeStackList + (endTime - startTime) / 1000000000.0;
 
             startTime = System.nanoTime();
             SudokuState.backtrackingSearch(new SudokuState(board), new ShittyStack<SudokuState>());
             endTime = System.nanoTime();
-            totalTimeShittyStack =  totalTimeShittyStack + (endTime - startTime) / 1000000000.0;
+            totalTimeShittyStack = totalTimeShittyStack + (endTime - startTime) / 1000000000.0;
         }
-        
 
         times[0] = totalTimeStackList / totalTrials;
         times[1] = totalTimeShittyStack / totalTrials;
@@ -366,9 +375,22 @@ public class SudokuState
 
     public static void main(String[] args)
     {
-        int[][] board =
+        int[][] boardN =
         {
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {2, 1, 0, 0, 0, 8, 6, 0, 3},
+            {8, 0, 3, 0, 2, 5, 0, 7, 6},
+            {0, 6, 0, 1, 0, 4, 8, 2, 0},
+            {0, 0, 2, 0, 0, 6, 0, 9, 0},
+            {0, 9, 1, 5, 0, 0, 4, 8, 0},
+            {3, 0, 0, 2, 0, 0, 1, 0, 5},
+            {7, 2, 8, 6, 0, 2, 0, 0, 4},
+            {9, 0, 0, 3, 0, 1, 2, 0, 8},
+            {0, 0, 0, 7, 0, 0, 0, 3, 0}};
+            
+
+        int[][] board2N =
+        {
+                {2, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -377,18 +399,21 @@ public class SudokuState
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0}};
-        
+
         int totalTrials = 50;
-        double[] testsForN = SudokuState.testBacktrace(totalTrials, board);
+        double[] testsForN = SudokuState.testBacktrace(totalTrials, boardN);
+        double[] testsfor2N = SudokuState.testBacktrace(totalTrials, board2N);
 
         double testStackListForN = testsForN[0];
         double testShittyStackForN = testsForN[1];
 
-        System.out.println("TestStackListForN: " + testStackListForN + "\nTestShittyStack: " + testShittyStackForN);
-        //double testsfor2N = SudokuState.testBacktrace(board);
-        
-        // TODO calcular testes para 2N de complexidade
-        //TODO calcular razao dobrada
+        double testStackListFor2N = testsfor2N[0];
+        double testShittyStackFor2N = testsfor2N[1];
 
+        double razaoShittyStack = testShittyStackFor2N / testShittyStackForN;
+        double razaoStackList = testStackListFor2N / testStackListForN;
+
+        System.out.println("Razao dobrada:\nShittyStack: " + razaoShittyStack + "\nStackList: "
+                + razaoStackList);
     }
 }
