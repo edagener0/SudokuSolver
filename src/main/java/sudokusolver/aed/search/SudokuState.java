@@ -345,24 +345,36 @@ public class SudokuState
     }
 
 
-    private static double[] testBacktrace(int totalTrials, int[][] board)
+    /* private static double[] testBacktrace(int totalTrials, int[][] board)
     {
         
         double[] times = new double[2];
-        double totalTimeShittyStack = 0;
-        double totalTimeStackList = 0;
 
+        double totalTimeStackList = 0;
+        double totalTimeShittyStack = 0;
+
+        long startTime, endTime;
+
+        boolean test = true;
+
+        SudokuState testBoard = new SudokuState(board);
+        
+        // testing for stackList
         for (int i = 0; i < totalTrials; i++)
         {
-            long startTime = System.nanoTime();
-            SudokuState.backtrackingSearch(new SudokuState(board), new StackList<SudokuState>());
-            long endTime = System.nanoTime();
-            totalTimeStackList = totalTimeStackList + (endTime - startTime) / 1000000000.0;
-
             startTime = System.nanoTime();
-            SudokuState.backtrackingSearch(new SudokuState(board), new ShittyStack<SudokuState>());
+            SudokuState.backtrackingSearch(testBoard, new StackList<SudokuState>());
             endTime = System.nanoTime();
-            totalTimeShittyStack = totalTimeShittyStack + (endTime - startTime) / 1000000000.0;
+            totalTimeStackList += endTime - startTime;
+        }
+
+        // testing for shittyStack
+        for (int i = 0; i < totalTrials; i++)
+        {
+            startTime = System.nanoTime();
+            SudokuState.backtrackingSearch(testBoard, new ShittyStack<SudokuState>());
+            endTime = System.nanoTime();
+            totalTimeShittyStack += endTime - startTime;
         }
 
         times[0] = totalTimeStackList / totalTrials;
@@ -370,8 +382,78 @@ public class SudokuState
 
         return times;
 
+    } */
+
+
+    private static double[][] testBacktraceCustom(int totalTrials, int[][] board1, int[][] board2) {
+        double[][] times = new double[3][3];
+    
+        double totalTimeBoard1 = 0;
+        double totalTimeBoard2 = 0;
+
+        double totalTimeBoard1Shitty = 0;
+        double totalTimeBoard2Shitty = 0;
+    
+        long startTime, endTime;
+    
+        SudokuState testBoard1 = new SudokuState(board1);
+        SudokuState testBoard2 = new SudokuState(board2);
+    
+        // first board
+        for (int i = 0; i < totalTrials; i++) {
+            startTime = System.nanoTime();
+            SudokuState.backtrackingSearch(testBoard1, new StackList<SudokuState>());
+            endTime = System.nanoTime();
+            totalTimeBoard1 += endTime - startTime;
+        }
+
+        for (int i = 0; i < totalTrials; i++) {
+            startTime = System.nanoTime();
+            SudokuState.backtrackingSearch(testBoard1, new ShittyStack<SudokuState>());
+            endTime = System.nanoTime();
+            totalTimeBoard1Shitty += endTime - startTime;
+        }
+    
+        // second board
+        for (int i = 0; i < totalTrials; i++) {
+            startTime = System.nanoTime();
+            SudokuState.backtrackingSearch(testBoard2, new StackList<SudokuState>());
+            endTime = System.nanoTime();
+            totalTimeBoard2 += endTime - startTime;
+        }
+
+        for (int i = 0; i < totalTrials; i++) {
+            startTime = System.nanoTime();
+            SudokuState.backtrackingSearch(testBoard2, new ShittyStack<SudokuState>());
+            endTime = System.nanoTime();
+            totalTimeBoard2Shitty += endTime - startTime;
+        }
+    
+        times[0][0] = totalTimeBoard1 / totalTrials;
+        times[0][1] = totalTimeBoard2 / totalTrials;
+    
+        times[0][2] = times[0][1] / times[0][0];
+        
+
+        times[1][0] = totalTimeBoard1Shitty / totalTrials;
+        times[1][1] = totalTimeBoard2Shitty / totalTrials;
+
+        times[1][2] = times[1][1] / times[1][0];
+    
+        return times;
     }
 
+
+    /* private static double testOnlyOne(int[][] board) {
+        SudokuState testState = new SudokuState(board);
+        double start;
+
+        start = System.nanoTime();
+        SudokuState.backtrackingSearch(testState, new ShittyStack<SudokuState>());
+
+        return System.nanoTime() - start;
+    } */
+    
 
     public static void main(String[] args)
     {
@@ -385,35 +467,53 @@ public class SudokuState
             {3, 0, 0, 2, 0, 0, 1, 0, 5},
             {7, 2, 8, 6, 0, 2, 0, 0, 4},
             {9, 0, 0, 3, 0, 1, 2, 0, 8},
-            {0, 0, 0, 7, 0, 0, 0, 3, 0}};
-            
+            {0, 0, 0, 7, 0, 0, 0, 3, 0}
+        };
 
         int[][] board2N =
         {
-            {2, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 2, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0}};
+            {0, 0, 0, 0, 0, 0, 0, 0, 0}
+        };
 
-        int totalTrials = 50;
-        double[] testsForN = SudokuState.testBacktrace(totalTrials, boardN);
-        double[] testsfor2N = SudokuState.testBacktrace(totalTrials, board2N);
+
+        int totalTrials = 1000000;
+
+        /* double[] testsForN = SudokuState.testBacktrace(totalTrials, boardN);
+        double[] testsFor2N = SudokuState.testBacktrace(totalTrials, board2N);
 
         double testStackListForN = testsForN[0];
         double testShittyStackForN = testsForN[1];
 
-        double testStackListFor2N = testsfor2N[0];
-        double testShittyStackFor2N = testsfor2N[1];
+        double testStackListFor2N = testsFor2N[0];
+        double testShittyStackFor2N = testsFor2N[1];
 
         double razaoShittyStack = testShittyStackFor2N / testShittyStackForN;
         double razaoStackList = testStackListFor2N / testStackListForN;
 
         System.out.println("Razao dobrada:\nShittyStack: " + razaoShittyStack + "\nStackList: "
                 + razaoStackList);
+
+        System.out.println("testsForN:  " + testsForN[0] + " " + testsForN[1]);
+        System.out.println("testsFor2N: " + testsFor2N[0] + " " + testsFor2N[1]); */
+
+        double[][] results = SudokuState.testBacktraceCustom(totalTrials, boardN, board2N);
+
+        System.out.println("\n> using StackList <");
+        System.out.println("time boardN: " + results[0][0] + " ns");
+        System.out.println("time board2N: " + results[0][1] + " ns");
+        System.out.println("razao: " + results[0][2]);
+
+        System.out.println("\n> using ShittyStack <");
+        System.out.println("time boardN: " + results[1][0] + " ns");
+        System.out.println("time board2N: " + results[1][1] + " ns");
+        System.out.println("razao: " + results[1][2]);
     }
 }

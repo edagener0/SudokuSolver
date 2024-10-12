@@ -4,12 +4,12 @@ import java.util.Iterator;
 
 public class StackList<T> implements IStack<T>
 {
-	private class Node
+	private static class Node<T>
 	{
 		private T item;
-		private Node next;
+		private Node<T> next;
 
-		Node(T item, Node next)
+		Node(T item, Node<T> next)
 		{
 			this.item = item;
 			this.next = next;
@@ -19,7 +19,7 @@ public class StackList<T> implements IStack<T>
 
 	private class StackListIterator implements Iterator<T>
 	{
-		private Node iterator;
+		private Node<T> iterator;
 
 		public StackListIterator()
 		{
@@ -45,7 +45,7 @@ public class StackList<T> implements IStack<T>
 	}
 
 
-	private Node list;
+	private Node<T> list;
 
 	private int size;
 
@@ -86,7 +86,7 @@ public class StackList<T> implements IStack<T>
 	@Override
 	public void push(T item)
 	{
-		Node newNode = new Node(item, list);
+		Node<T> newNode = new Node<T>(item, list);
 		this.list = newNode;
 		this.size++;
 	}
@@ -166,7 +166,7 @@ public class StackList<T> implements IStack<T>
 	{
 		int totalTrials = 50;
 
-		int testSampleSize = 1000;
+		int testSampleSize = 10000;
 
 		double stackListTimeForN = testStack(new StackList<Integer>(), totalTrials, testSampleSize);
 		double stackListTimeFor2N = testStack(new StackList<Integer>(), totalTrials, testSampleSize * 2);
