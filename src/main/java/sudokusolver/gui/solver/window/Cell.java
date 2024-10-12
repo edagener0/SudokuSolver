@@ -39,6 +39,7 @@ public class Cell extends JTextField {
     public int getNumber() throws InvalidDigit {
         String content = this.getText();
 
+        // FIXME .isEmpty doesnt look for spaces; .isBlank better but have compatibility issues
         if (content.isEmpty()) {
             return 0;
         }
