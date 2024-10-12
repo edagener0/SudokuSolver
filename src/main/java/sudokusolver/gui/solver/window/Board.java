@@ -1,24 +1,26 @@
-package main.java.sudokusolver.gui.solver.window;
+package sudokusolver.gui.solver.window;
 
 import java.awt.GridLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JPanel;
 
-import main.java.sudokusolver.gui.solver.exception.InvalidBoard;
-import main.java.sudokusolver.gui.solver.exception.InvalidDigit;
+import sudokusolver.gui.solver.exception.InvalidBoard;
+import sudokusolver.gui.solver.exception.InvalidDigit;
 
 
 public class Board extends JPanel {
     private Cell[][] cells;
 
-    public Board(int width, Color cellBackground, Color cellBackground2) {
+    public Board(Dimension size, Color cellBackground, Color cellBackground2, Color borderColor) {
         super(new GridLayout(9, 9));
+        setPreferredSize(size);
 
         this.cells = new Cell[9][9];
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                cells[i][j] = new Cell(cellBackground);
+                cells[i][j] = new Cell(new Dimension((int) (size.getWidth() / 9), (int) (size.getHeight() / 9)), cellBackground, borderColor);
 
                 if ((i/3 + j/3) % 2 == 0) {
                     cells[i][j].setColor(cellBackground2);

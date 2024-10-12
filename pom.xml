@@ -9,7 +9,6 @@
 
     <build>
         <plugins>
-            <!-- Plugin para compilar o código Java -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -20,7 +19,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Plugin para gerar o JAR executável -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -28,8 +26,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <!-- Substitua por seu pacote e classe principal -->
-                            <mainClass>main.java.sudokusolver.gui.Main</mainClass>
+                            <mainClass>sudokusolver.gui.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -39,7 +36,6 @@
 
 
     <dependencies>
-        <!-- Adicione aqui as dependências necessárias, caso haja alguma -->
     </dependencies>
 
 </project>

@@ -1,4 +1,4 @@
-package main.java.sudokusolver.aed.search;
+package sudokusolver.aed.search;
 
 
 public class MEGAFUNCAODETESTE2

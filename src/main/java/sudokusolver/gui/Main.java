@@ -1,6 +1,6 @@
-package main.java.sudokusolver.gui;
+package sudokusolver.gui;
 
-import main.java.sudokusolver.gui.solver.Solver;
+import sudokusolver.gui.solver.Solver;
 
 public class Main {
     public static void main(String[] args) {

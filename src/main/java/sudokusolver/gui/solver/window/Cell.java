@@ -1,10 +1,11 @@
-package main.java.sudokusolver.gui.solver.window;
+package sudokusolver.gui.solver.window;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Dimension;
 import javax.swing.JTextField;
 
-import main.java.sudokusolver.gui.solver.exception.InvalidDigit;
+import sudokusolver.gui.solver.exception.InvalidDigit;
 
 import javax.swing.BorderFactory;
 
@@ -12,13 +13,14 @@ import javax.swing.BorderFactory;
 public class Cell extends JTextField {
     private Color background;
 
-    public Cell(Color backgroundColor) {
+    public Cell(Dimension size, Color backgroundColor, Color borderColor) {
         this.background = backgroundColor;
 
         setHorizontalAlignment(JTextField.CENTER);
-        setFont(new Font("Arial", Font.PLAIN, 20));
-        setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        setFont(new Font("Arial", Font.PLAIN, (int) (size.getWidth() / 1.75)));
+        setBorder(BorderFactory.createLineBorder(borderColor));
         setBackground(this.background);
+        setPreferredSize(size);
     }
 
     public void setColor(Color backgroundColor) {

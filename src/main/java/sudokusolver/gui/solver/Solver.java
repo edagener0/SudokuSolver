@@ -1,11 +1,13 @@
-package main.java.sudokusolver.gui.solver;
+package sudokusolver.gui.solver;
 
-import main.java.sudokusolver.aed.search.SudokuState;
-import main.java.sudokusolver.gui.solver.exception.InvalidBoard;
-import main.java.sudokusolver.gui.solver.window.MsgBox;
-import main.java.sudokusolver.gui.solver.window.Window;
+import sudokusolver.aed.search.SudokuState;
+import sudokusolver.gui.solver.exception.InvalidBoard;
+import sudokusolver.gui.solver.window.MsgBox;
+import sudokusolver.gui.solver.window.Window;
 
 public class Solver {
+    private final int DEFAULT_WIDTH = 500;
+
     private int[][] sudokuBoard;
     private Window window;
     private SudokuState sudokuState;
@@ -47,13 +49,13 @@ public class Solver {
             if (this.sudokuState == null) {
                 endTime = System.nanoTime();
                 MsgBox.error("No solution found. 🐳");
-                System.err.println("No solution found. Elapsed time: " + (endTime - startTime) / 1000000000);
+                System.err.println("No solution found. Elapsed time: " + (endTime - startTime) / 1000000000.0);
                 return;
             }
 
             endTime = System.nanoTime();
 
-            System.out.println("Solution found! Elapsed time: " + (endTime - startTime) / 1000000000 +
+            System.out.println("Solution found! Elapsed time: " + (endTime - startTime) / 1000000000.0 +
                     "\nSolution: \n" + this.sudokuState.toString());
 
             this.window.setBoard(this.sudokuState.getBoard());
@@ -67,8 +69,29 @@ public class Solver {
         this.window.resetBoard();
     }
 
+    public void run() {
+        this.run(null);
+    }
+
     public void run(String[] args) {
-        this.window = new Window(500);
+        if (args == null || args.length == 0) {
+            this.window = new Window(this.DEFAULT_WIDTH);
+        } else {
+            int windowWidth;
+
+            try {
+                windowWidth = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                windowWidth = -1;
+            }
+
+            if (windowWidth <= this.DEFAULT_WIDTH) {
+                windowWidth = this.DEFAULT_WIDTH;
+            }
+
+            this.window = new Window(windowWidth);
+        }
+
 
         window.setCheckButtonFunction(e -> {
             this.solve();

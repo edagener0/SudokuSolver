@@ -1,4 +1,4 @@
-package main.java.sudokusolver.aed.collections;
+package sudokusolver.aed.collections;
 
 // import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package main.java.sudokusolver.gui.solver.window;
+package sudokusolver.gui.solver.window;
 
 import javax.swing.JOptionPane;
 

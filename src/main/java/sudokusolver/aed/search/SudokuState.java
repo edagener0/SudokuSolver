@@ -1,10 +1,10 @@
-package main.java.sudokusolver.aed.search;
+package sudokusolver.aed.search;
 
 import java.util.List;
 
-import main.java.sudokusolver.aed.collections.IStack;
-import main.java.sudokusolver.aed.collections.ShittyStack;
-import main.java.sudokusolver.aed.collections.StackList;
+import sudokusolver.aed.collections.IStack;
+import sudokusolver.aed.collections.ShittyStack;
+import sudokusolver.aed.collections.StackList;
 
 import java.util.ArrayList;
 
@@ -92,6 +92,7 @@ public class SudokuState
     }
 
 
+    // XXX used at line 246
     private static boolean isBoardValid(int[][] board) {
         SudokuState tempState = new SudokuState(board);
         for (int i = 0; i < N; i++) {
@@ -241,9 +242,10 @@ public class SudokuState
 
     private static SudokuState backtrackingSearch(SudokuState initialState, IStack<SudokuState> stack)
     {
-        if (!isBoardValid(initialState.getBoard())) {
+        // FIXME function not working properly; if theres only a digit on the board the function returns that the sudoku is unsolvable
+        /* if (!isBoardValid(initialState.getBoard())) {
             return null;
-        }
+        } */
 
         stack.push(initialState);
 
