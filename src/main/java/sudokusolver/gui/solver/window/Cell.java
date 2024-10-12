@@ -39,7 +39,7 @@ public class Cell extends JTextField {
     public int getNumber() throws InvalidDigit {
         String content = this.getText();
 
-        if (content.isBlank()) {
+        if (content.isEmpty()) {
             return 0;
         }
 
