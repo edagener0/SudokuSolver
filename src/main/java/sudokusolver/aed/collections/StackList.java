@@ -1,6 +1,10 @@
 package sudokusolver.aed.collections;
 
 import java.util.Iterator;
+import sudokusolver.aed.utils.TemporalAnalysisUtils;
+
+import java.util.function.Function;
+import java.util.function.Consumer;
 
 public class StackList<T> implements IStack<T>
 {
@@ -162,11 +166,12 @@ public class StackList<T> implements IStack<T>
 	}
 
 
+	/*
 	public static void main(String[] args)
 	{
 		int totalTrials = 50;
 
-		int testSampleSize = 10000;
+		int testSampleSize = 1000;
 
 		double stackListTimeForN = testStack(new StackList<Integer>(), totalTrials, testSampleSize);
 		double stackListTimeFor2N = testStack(new StackList<Integer>(), totalTrials, testSampleSize * 2);
@@ -177,6 +182,29 @@ public class StackList<T> implements IStack<T>
 		double razaoStackList = stackListTimeFor2N / stackListTimeForN;
 		double razaoShittyStackList = shittyStackListFor2N / shittyStackListForN;
 
-		System.out.println("Razao Dobrada do ShittyStack: " + razaoShittyStackList + "\n" +  "Razao dobrada da StackList: " + razaoStackList);
+		String stackListTime = String.format("StackList:\nTime for N: %f seconds\nTime for 2N: %f seconds\nRazão dobrada: %f\n", 
+								stackListTimeForN, stackListTimeFor2N, razaoStackList);
+
+		String shittyStackTime = String.format("ShittyStack:\nTime for N: %f seconds\nTime for 2N: %f seconds\nRazão dobrada: %f\n", 
+								shittyStackListForN, shittyStackListFor2N, razaoShittyStackList);
+		
+		System.out.println(stackListTime + shittyStackTime);
+	}
+		*/
+	public static void main(String[] args) 
+	{
+		Function<Integer, StackList<Integer>> stackListGenerator = size -> {
+			StackList<Integer> stackList = new StackList<Integer>();
+			for (int i = 0; i < size; i++)
+			{
+				stackList.push(i);
+			}
+
+			return stackList;
+		};
+
+		Consumer<StackList<Integer>> methodToTest = StackList::push; 
+		//long time1 = TemporalAnalysisUtils.getAverageCPUTime(testStack(new StackList<Integer>(), 50, 1000));		
+		
 	}
 }
