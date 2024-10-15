@@ -267,7 +267,7 @@ public class SudokuState
             SudokuState lastState = stack.peek();
 
             if (lastState.isSolution()) {
-                System.out.println("---- SOLUCAO --- SOLUCAO --- SOLUCAO --- SOLUCAO --- SOLUCAO ---");
+              //  System.out.println("---- SOLUCAO --- SOLUCAO --- SOLUCAO --- SOLUCAO --- SOLUCAO ---");
                 return lastState.clone();
             }
 
@@ -282,7 +282,7 @@ public class SudokuState
             }
         }
 
-        System.out.println("---- NOPE --- NOPE --- NOPE --- NOPE --- NOPE ---");
+        //System.out.println("---- NOPE --- NOPE --- NOPE --- NOPE --- NOPE ---");
         return null;
     }
 
@@ -512,8 +512,8 @@ public class SudokuState
         System.out.println("testsForN:  " + testsForN[0] + " " + testsForN[1]);
         System.out.println("testsFor2N: " + testsFor2N[0] + " " + testsFor2N[1]); */
 
-        double[][] results = SudokuState.testBacktraceCustom(totalTrials, boardN, board2N);
-
+        //double[][] results = SudokuState.testBacktraceCustom(totalTrials, boardN, board2N);
+        /*
         System.out.println("\n> using StackList <");
         System.out.println("time boardN: " + results[0][0] + " ns");
         System.out.println("time board2N: " + results[0][1] + " ns");
@@ -525,32 +525,54 @@ public class SudokuState
         System.out.println("razao: " + results[1][2]);
 
         System.out.println("\n\n\n");
-
-        Function<Integer, SudokuState> exampleGenerator = (complexity) -> generateSudokuExample(complexity);
+         */
+        Function<Integer, SudokuState> exampleGenerator = (complexity) -> generateSudokuExample(complexity / 125);
 
         // Método que realiza a busca de backtracking
-        Consumer<SudokuState> methodToTest = (state) -> SudokuState.backtrackingSearch(state, new ShittyStack<>());
+        Consumer<SudokuState> methodToTest = (state) -> SudokuState.backtrackingSearch(state, new StackList<SudokuState>());
+        Consumer<SudokuState> methodToTest2 = (state) -> SudokuState.backtrackingSearch(state, new ShittyStack<SudokuState>());
 
         // Executar o teste de razão dobrada com 5 iterações
-        TemporalAnalysisUtils.runDoublingRatioTest(exampleGenerator, methodToTest, 24);
+        TemporalAnalysisUtils.runDoublingRatioTest(exampleGenerator, methodToTest, 6);
+        TemporalAnalysisUtils.runDoublingRatioTest(exampleGenerator, methodToTest2, 6);
+        //System.out.println(SudokuState.generateSudokuExample(8000 / 125).toString());
     }
 
     // Função que gera diferentes tabuleiros de Sudoku com uma complexidade 'n'
     public static SudokuState generateSudokuExample(int complexity) {
-        int[][] board = new int[9][9];
+        //int[][] board = new int[9][9];
+        int[][] board  = {
+            {1, 2, 3, 4, 5, 6, 7, 8, 9},
+            {7, 8, 9, 1, 2, 3, 4, 5, 6},
+            {4, 5, 6, 7, 8, 9, 1, 2, 3},
+            {3, 1, 2, 8, 4, 5, 9, 6, 7},
+            {6, 9, 7, 3, 1, 2, 8, 4, 5},
+            {8, 4, 5, 6, 9, 7, 3, 1, 2},
+            {2, 3, 1, 5, 7, 4, 6, 9, 8},
+            {9, 6, 8, 2, 3, 1, 5, 7, 4},
+            {5, 7, 4, 9, 6, 8, 2, 3, 1}
+        };
+
+        int how_many_zeros = 0;
         
         // Quanto maior a complexidade, mais células vazias
-        for (int i = 0; i < complexity && i < 9; i++) {
-            for (int j = 0; j < complexity && j < 9; j++) {
-                if ((i + j) % 3 == 0) { // Exemplo simples de como gerar um tabuleiro variado
-                    board[i][j] = 0; // Células vazias para aumentar a complexidade
-                } else {
-                    board[i][j] = (i * 3 + j) % 9 + 1; // Preencher com valores válidos
+        for (int i = 0; how_many_zeros < complexity && i < 9; i++) {
+            for (int j = 0; how_many_zeros < complexity && j < 9; j++) {
+                if (i % 2 == 0 || j % 2 == 0) {
+                    board[i][j] = 0;
+                    how_many_zeros++;
                 }
             }
         }
 
-        return new SudokuState(board);
+        SudokuState state = new SudokuState(board);
+
+        //System.out.println(how_many_zeros);
+        //System.out.println(state.toString());
+
+        return state;
     }
+
+   
 }
 
