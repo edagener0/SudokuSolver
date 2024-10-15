@@ -18,7 +18,8 @@ public class TemporalAnalysisUtils {
         int n = MINIMUM_COMPLEXITY;
         double previousTime = getAverageCPUTime(exampleGenerator,n,methodToTest,DEFAULT_TRIALS);
         System.out.println("i\tcomplexity\ttime(ms)\testimated r");
-        System.out.println("0\t" + n + "\t" + previousTime + "\t ---");
+        //System.out.println("0\t" + n + "\t" + previousTime + "\t ---");
+        System.out.printf("%d\t%d\t\t%.6f\t---\n", 0, n, previousTime);
         double newTime;
         double doublingRatio;
 
@@ -34,7 +35,8 @@ public class TemporalAnalysisUtils {
             else doublingRatio = 0;
 
             previousTime = newTime;
-            System.out.println(i+1 + "\t" + n + "\t" + newTime/1E6 + "\t" + doublingRatio);
+            //System.out.println(i+1 + "\t" + n + "\t" + newTime/1E6 + "\t" + doublingRatio);
+            System.out.printf("%d\t%d\t\t%.6f\t%.6f\n", i+1, n, newTime/1E6, doublingRatio);
         }
     }
 

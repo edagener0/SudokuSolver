@@ -166,8 +166,7 @@ public class StackList<T> implements IStack<T>
 	}
 
 
-	/*
-	public static void main(String[] args)
+	/* public static void main(String[] args)
 	{
 		int totalTrials = 50;
 
@@ -189,22 +188,61 @@ public class StackList<T> implements IStack<T>
 								shittyStackListForN, shittyStackListFor2N, razaoShittyStackList);
 		
 		System.out.println(stackListTime + shittyStackTime);
-	}
-		*/
-	public static void main(String[] args) 
-	{
-		Function<Integer, StackList<Integer>> stackListGenerator = size -> {
-			StackList<Integer> stackList = new StackList<Integer>();
-			for (int i = 0; i < size; i++)
-			{
-				stackList.push(i);
-			}
+	} */
 
-			return stackList;
-		};
+	public static void main(String[] args) {
+		int iterations = 15;
 
-		Consumer<StackList<Integer>> methodToTest = StackList::push; 
-		//long time1 = TemporalAnalysisUtils.getAverageCPUTime(testStack(new StackList<Integer>(), 50, 1000));		
-		
+		System.out.println("-- Test StackList method push --");
+		TemporalAnalysisUtils.runDoublingRatioTest(
+			(Integer n) -> {
+				StackList<Integer> stack = new StackList<Integer>();
+				for (int i = 0; i < n; i++) {
+					stack.push(i);
+				}
+				return stack;
+			},
+			(StackList<Integer> stack) -> stack.push(1),
+			iterations
+		);
+
+		System.out.println("\n-- Test StackList method pop --");
+		TemporalAnalysisUtils.runDoublingRatioTest(
+			(Integer n) -> {
+				StackList<Integer> stack = new StackList<Integer>();
+				for (int i = 0; i < n; i++) {
+					stack.push(i);
+				}
+				return stack;
+			},
+			(StackList<Integer> stack) -> stack.pop(),
+			iterations
+		);
+
+		/* System.out.println("-- Test ShittyStack method push --");
+		TemporalAnalysisUtils.runDoublingRatioTest(
+			(Integer n) -> {
+				ShittyStack<Integer> stack = new ShittyStack<Integer>();
+				for (int i = 0; i < n; i++) {
+					stack.push(i);
+				}
+				return stack;
+			},
+			(ShittyStack<Integer> stack) -> stack.push(1),
+			iterations
+		); */
+
+		System.out.println("\n-- Test ShittyStack method pop --");
+		TemporalAnalysisUtils.runDoublingRatioTest(
+			(Integer n) -> {
+				ShittyStack<Integer> stack = new ShittyStack<Integer>();
+				for (int i = 0; i < n; i++) {
+					stack.push(i);
+				}
+				return stack;
+			},
+			(ShittyStack<Integer> stack) -> stack.pop(),
+			iterations
+		);
 	}
 }
