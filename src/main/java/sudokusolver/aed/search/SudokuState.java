@@ -1,10 +1,13 @@
 package sudokusolver.aed.search;
 
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import sudokusolver.aed.collections.IStack;
 import sudokusolver.aed.collections.ShittyStack;
 import sudokusolver.aed.collections.StackList;
+import sudokusolver.aed.utils.TemporalAnalysisUtils;
 
 import java.util.ArrayList;
 
@@ -263,8 +266,10 @@ public class SudokuState
         {
             SudokuState lastState = stack.peek();
 
-            if (lastState.isSolution())
+            if (lastState.isSolution()) {
+                System.out.println("---- SOLUCAO --- SOLUCAO --- SOLUCAO --- SOLUCAO --- SOLUCAO ---");
                 return lastState.clone();
+            }
 
             List<SudokuState> nextStages = stack.pop().generateValidNextStates();
 
@@ -277,6 +282,7 @@ public class SudokuState
             }
         }
 
+        System.out.println("---- NOPE --- NOPE --- NOPE --- NOPE --- NOPE ---");
         return null;
     }
 
@@ -517,5 +523,34 @@ public class SudokuState
         System.out.println("time boardN: " + results[1][0] + " ns");
         System.out.println("time board2N: " + results[1][1] + " ns");
         System.out.println("razao: " + results[1][2]);
+
+        System.out.println("\n\n\n");
+
+        Function<Integer, SudokuState> exampleGenerator = (complexity) -> generateSudokuExample(complexity);
+
+        // Método que realiza a busca de backtracking
+        Consumer<SudokuState> methodToTest = (state) -> SudokuState.backtrackingSearch(state, new ShittyStack<>());
+
+        // Executar o teste de razão dobrada com 5 iterações
+        TemporalAnalysisUtils.runDoublingRatioTest(exampleGenerator, methodToTest, 24);
+    }
+
+    // Função que gera diferentes tabuleiros de Sudoku com uma complexidade 'n'
+    public static SudokuState generateSudokuExample(int complexity) {
+        int[][] board = new int[9][9];
+        
+        // Quanto maior a complexidade, mais células vazias
+        for (int i = 0; i < complexity && i < 9; i++) {
+            for (int j = 0; j < complexity && j < 9; j++) {
+                if ((i + j) % 3 == 0) { // Exemplo simples de como gerar um tabuleiro variado
+                    board[i][j] = 0; // Células vazias para aumentar a complexidade
+                } else {
+                    board[i][j] = (i * 3 + j) % 9 + 1; // Preencher com valores válidos
+                }
+            }
+        }
+
+        return new SudokuState(board);
     }
 }
+

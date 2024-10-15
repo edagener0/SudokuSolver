@@ -219,7 +219,7 @@ public class StackList<T> implements IStack<T>
 			iterations
 		);
 
-		/* System.out.println("-- Test ShittyStack method push --");
+		System.out.println("-- Test ShittyStack method push --");
 		TemporalAnalysisUtils.runDoublingRatioTest(
 			(Integer n) -> {
 				ShittyStack<Integer> stack = new ShittyStack<Integer>();
@@ -230,7 +230,7 @@ public class StackList<T> implements IStack<T>
 			},
 			(ShittyStack<Integer> stack) -> stack.push(1),
 			iterations
-		); */
+		);
 
 		System.out.println("\n-- Test ShittyStack method pop --");
 		TemporalAnalysisUtils.runDoublingRatioTest(

@@ -19,7 +19,7 @@ public class TemporalAnalysisUtils {
         double previousTime = getAverageCPUTime(exampleGenerator,n,methodToTest,DEFAULT_TRIALS);
         System.out.println("i\tcomplexity\ttime(ms)\testimated r");
         //System.out.println("0\t" + n + "\t" + previousTime + "\t ---");
-        System.out.printf("%d\t%d\t\t%.6f\t---\n", 0, n, previousTime);
+        System.out.printf("%d\t%d\t\t%.6f\t---\n", 0, n, previousTime/1E6);
         double newTime;
         double doublingRatio;
 
