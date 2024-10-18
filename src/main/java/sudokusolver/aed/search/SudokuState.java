@@ -1,15 +1,12 @@
 package sudokusolver.aed.search;
 
 import java.util.List;
-// import java.util.function.Consumer;
-// import java.util.function.Function;
+import java.util.ArrayList;
 
 import sudokusolver.aed.collections.IStack;
 import sudokusolver.aed.collections.ShittyStack;
 import sudokusolver.aed.collections.StackList;
 import sudokusolver.aed.utils.TemporalAnalysisUtils;
-
-import java.util.ArrayList;
 
 
 public class SudokuState
@@ -94,30 +91,6 @@ public class SudokuState
         }
 
         return false;
-    }
-
-
-    // XXX used at line 246
-    private static boolean isBoardValid(int[][] board)
-    {
-        SudokuState tempState = new SudokuState(board);
-        for (int i = 0; i < N; i++)
-        {
-            for (int j = 0; j < N; j++)
-            {
-                int digit = tempState.getCell(i, j);
-                if (digit == 0)
-                {
-                    continue;
-                }
-
-                if (!tempState.isValidAction(i, j, digit))
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
 
@@ -345,17 +318,16 @@ public class SudokuState
 
     public static void main(String[] args)
     {
-        // NOTA: RAZAO NA BASE 2 e o expoente elevado a a ao expoente da razao na base 2.
         int iterations = 6;
         System.out.println("Backtracking Search Stacklist");
         TemporalAnalysisUtils.runDoublingRatioTest((complexity) -> generateSudokuExample(complexity), 
         (state) -> SudokuState.backtrackingSearch(state, new StackList<SudokuState>()), 
-        iterations, 1);
+        iterations);
 
         System.out.println("Backtracking Search ShittyStack");
         TemporalAnalysisUtils.runDoublingRatioTest((complexity) -> generateSudokuExample(complexity), 
         (state) -> SudokuState.backtrackingSearch(state, new ShittyStack<SudokuState>()), 
-        iterations, 1);
+        iterations);
     }
 
     public static SudokuState generateSudokuExample(int complexity) {
@@ -372,9 +344,13 @@ public class SudokuState
         };
 
         int zerosCount = 0;
+
+        // é necessaria a divisao por 125, pois o minimo esta hard coded no ficheiro
+        // TemporalAnalysisUtils, e nao pode ser alterado
+        int newComplexity = complexity / 125;
         
-        for (int i = 0; zerosCount < complexity && i < 9; i++) {
-            for (int j = 0; zerosCount < complexity && j < 9; j++) {
+        for (int i = 0; zerosCount < newComplexity && i < 9; i++) {
+            for (int j = 0; zerosCount < newComplexity && j < 9; j++) {
                 if (i % 2 == 0 || j % 2 == 0) {
                     board[i][j] = 0;
                     zerosCount++;

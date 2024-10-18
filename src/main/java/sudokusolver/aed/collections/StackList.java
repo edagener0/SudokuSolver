@@ -3,8 +3,6 @@ package sudokusolver.aed.collections;
 import java.util.Iterator;
 import sudokusolver.aed.utils.TemporalAnalysisUtils;
 
-// import java.util.function.Function;
-// import java.util.function.Consumer;
 
 public class StackList<T> implements IStack<T>
 {
