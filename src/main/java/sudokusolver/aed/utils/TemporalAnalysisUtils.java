@@ -9,13 +9,17 @@ import java.util.function.UnaryOperator;
 public class TemporalAnalysisUtils {
 
     private static final int DEFAULT_TRIALS = 30;
-    private static final int MINIMUM_COMPLEXITY = 125;
+    private static final int MINIMUM_COMPLEXITY = 125; 
 
+    /////////////////////////////////
+    public static<T> void runDoublingRatioTest(Function<Integer,T> exampleGenerator, Consumer<T> methodToTest, int iterations) {
+        TemporalAnalysisUtils.runDoublingRatioTest(exampleGenerator, methodToTest, iterations, MINIMUM_COMPLEXITY);
+    }
 
-    public static<T> void runDoublingRatioTest(Function<Integer,T> exampleGenerator, Consumer<T> methodToTest, int iterations)
+    public static<T> void runDoublingRatioTest(Function<Integer,T> exampleGenerator, Consumer<T> methodToTest, int iterations, int complexity)
     {
         assert(iterations > 0);
-        int n = MINIMUM_COMPLEXITY;
+        int n = complexity;
         double previousTime = getAverageCPUTime(exampleGenerator,n,methodToTest,DEFAULT_TRIALS);
         System.out.println("i\tcomplexity\ttime(ms)\testimated r");
         //System.out.println("0\t" + n + "\t" + previousTime + "\t ---");
@@ -23,6 +27,7 @@ public class TemporalAnalysisUtils {
         double newTime;
         double doublingRatio;
 
+        // double averageDoublingRatio = 0;
 
         for(int i = 0; i < iterations; i++)
         {
@@ -38,6 +43,8 @@ public class TemporalAnalysisUtils {
             //System.out.println(i+1 + "\t" + n + "\t" + newTime/1E6 + "\t" + doublingRatio);
             System.out.printf("%d\t%d\t\t%.6f\t%.6f\n", i+1, n, newTime/1E6, doublingRatio);
         }
+
+        // System.out.printf("\n\t\t\taverage:\t%.6f\n\n",averageDoublingRatio / (double) iterations);
     }
 
     //this method is used to empirically determine the average execution time of the received consumer method across a number of trials

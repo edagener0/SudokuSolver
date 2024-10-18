@@ -42,21 +42,21 @@ public class ShittyStack<T> implements IStack<T>
     }
 
     @Override
-    public void push(T item)
+    public void push(T item) {
+
+    if(this.size == this.items.length)
     {
-        this.size++;
-        if (this.size == this.items.length)
-        {
-            resize(this.items.length * 2);
-        }
+        resize(this.items.length*2);
+    }
+    this.size++;
 
-        // shift right
-        for (int i = 1; i < size; i++)
-        {
-            this.items[i] = this.items[i - 1];
-        }
+    //shift right
+    for(int i = size-1; i>0; i--)
+    {
+        this.items[i] = this.items[i-1];
+    }
 
-        this.items[0] = item;
+    this.items[0] = item;
     }
 
     @Override

@@ -3,8 +3,8 @@ package sudokusolver.aed.collections;
 import java.util.Iterator;
 import sudokusolver.aed.utils.TemporalAnalysisUtils;
 
-import java.util.function.Function;
-import java.util.function.Consumer;
+// import java.util.function.Function;
+// import java.util.function.Consumer;
 
 public class StackList<T> implements IStack<T>
 {
@@ -44,7 +44,7 @@ public class StackList<T> implements IStack<T>
 
 		public void remove()
 		{
-			throw new UnsupportedOperationException("I do not support this.");
+			throw new UnsupportedOperationException("Removal Operation not supported for Iterator.");
 		}
 	}
 
@@ -130,66 +130,6 @@ public class StackList<T> implements IStack<T>
 	}
 
 
-	private static double testStack(IStack<Integer> stack, int totalTrials, int testSampleSize)
-	{
-		double totalTime = 0;
-
-		for (int i = 0; i < totalTrials; i++)
-		{
-			long startTime = System.nanoTime();
-
-			for (int j = 0; j < testSampleSize; j++)
-			{
-				stack.push(j);
-			}
-
-			for (int j = 0; j < testSampleSize / 2; j++)
-			{
-				stack.pop();
-			}
-
-			for (int j = 0; j < testSampleSize / 2; j++)
-			{
-				stack.push(j);
-			}
-
-			for (int j = 0; j < testSampleSize; j++)
-			{
-				stack.pop();
-			}
-
-			long endTime = System.nanoTime();
-			totalTime = totalTime + (endTime - startTime) / 1000000000.0;
-		}
-
-		return totalTime / totalTrials;
-	}
-
-
-	/* public static void main(String[] args)
-	{
-		int totalTrials = 50;
-
-		int testSampleSize = 1000;
-
-		double stackListTimeForN = testStack(new StackList<Integer>(), totalTrials, testSampleSize);
-		double stackListTimeFor2N = testStack(new StackList<Integer>(), totalTrials, testSampleSize * 2);
-		
-		double shittyStackListForN = testStack(new ShittyStack<Integer>(), totalTrials, testSampleSize);
-		double shittyStackListFor2N = testStack(new ShittyStack<Integer>(), totalTrials, testSampleSize * 2);
-
-		double razaoStackList = stackListTimeFor2N / stackListTimeForN;
-		double razaoShittyStackList = shittyStackListFor2N / shittyStackListForN;
-
-		String stackListTime = String.format("StackList:\nTime for N: %f seconds\nTime for 2N: %f seconds\nRazão dobrada: %f\n", 
-								stackListTimeForN, stackListTimeFor2N, razaoStackList);
-
-		String shittyStackTime = String.format("ShittyStack:\nTime for N: %f seconds\nTime for 2N: %f seconds\nRazão dobrada: %f\n", 
-								shittyStackListForN, shittyStackListFor2N, razaoShittyStackList);
-		
-		System.out.println(stackListTime + shittyStackTime);
-	} */
-
 	public static void main(String[] args) {
 		int iterations = 15;
 
@@ -197,7 +137,7 @@ public class StackList<T> implements IStack<T>
 		TemporalAnalysisUtils.runDoublingRatioTest(
 			(Integer n) -> {
 				StackList<Integer> stack = new StackList<Integer>();
-				for (int i = 0; i < n; i++) {
+				for (int i = 0; i < 100; i++) {
 					stack.push(i);
 				}
 				return stack;
@@ -210,7 +150,7 @@ public class StackList<T> implements IStack<T>
 		TemporalAnalysisUtils.runDoublingRatioTest(
 			(Integer n) -> {
 				StackList<Integer> stack = new StackList<Integer>();
-				for (int i = 0; i < n; i++) {
+				for (int i = 0; i < 100; i++) {
 					stack.push(i);
 				}
 				return stack;
