@@ -38,8 +38,9 @@ public class Window extends JFrame {
 
         this.checkButtonDimension = new Dimension((int) (this.WIDTH / 2), (int) (this.footerDimension.getHeight()));
         // FIXME using the line below the program takes longer to load idk why :(    comment the line to see the change
+        //this.resetButtonDimension = new Dimension((int) (this.WIDTH / 2), (int) (this.footerDimension.getHeight()));
         this.resetButtonDimension = new Dimension((int) (this.WIDTH / 2), (int) (this.footerDimension.getHeight()));
-        
+
         this.HEIGHT = (int) (this.headerDimension.getHeight() + this.boardDimension.getHeight() + this.footerDimension.getHeight());
         this.WINDOW_SIZE = new Dimension(this.WIDTH, this.HEIGHT + (int) (this.boardDimension.getWidth() / 16));
         

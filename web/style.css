@@ -1,18 +1,86 @@
-#sudoku-grid {
-    border: 2px solid #440000;
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
 }
+
+header {
+    margin: 0;
+    background-color: #f0f0f0;
+    padding: 2%;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+footer {
+    margin: 0;
+    background-color: #2f4f4f;
+    padding: 2%;
+}
+
+
+#title {
+    margin: 0;
+    color: #333;
+}
+
+#solver {
+    margin-top: 2.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: slateblue;
+
+}
+
+#sudoku-grid {
+    border: 5px solid #2f4f4f;
+   
+}
+
+#buttons-container {
+    padding: 2.5%;
+    display: flex;
+}
+
+#solve-sudoku-button, #view-solve-sudoku-button  {
+    width: 100%;
+    font-size: 1.5rem;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    
+}
+
+
 
 .cell-input {
-    color: #000000;
+    color: #c2b4b4;
     border: 0;
     text-align: center;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    background-color: #33ffff;
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+    background-color: chartreuse;
 }
 
+
+.cell-input.subgrid-0, .cell-input.cell-input.subgrid-2, .cell-input.cell-input.cell-input.subgrid-4, .cell-input.cell-input.cell-input.subgrid-6, .cell-input.cell-input.cell-input.subgrid-8 {
+    background-color: gray;
+}
+
+.cell-input.subgrid-1, .cell-input.cell-input.subgrid-3, .cell-input.cell-input.cell-input.subgrid-5, .cell-input.cell-input.cell-input.subgrid-7 {
+    background-color: lightgrey;
+}
 
 .cell-input:disabled {
     background-color: #ff21ee;
+}
+
+.cell {
+
+    width: 50px;
+
+    height: 50px;
+
+    padding: 5px; 
 }

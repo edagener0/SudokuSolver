@@ -8,118 +8,134 @@
         @import "style.css";
     </style>
 </head>
-
 <body>
-    <table id="sudoku-grid">
-        <tr>
-            <td class=cell><input class="cell-input" id="row-0-col-0" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-0-col-1" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-0-col-2" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-0-col-3" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-0-col-4" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-0-col-5" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-0-col-6" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-0-col-7" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-0-col-8" type="text"></td>
-        </tr>
-
-        <tr>
-            <td class=cell><input class="cell-input" id="row-1-col-0" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-1-col-1" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-1-col-2" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-1-col-3" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-1-col-4" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-1-col-5" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-1-col-6" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-1-col-7" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-1-col-8" type="text"></td>
-        </tr>
-
-        <tr>
-            <td class=cell><input class="cell-input" id="row-2-col-0" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-2-col-1" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-2-col-2" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-2-col-3" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-2-col-4" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-2-col-5" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-2-col-6" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-2-col-7" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-2-col-8" type="text"></td>
-        </tr>
-
-        <tr>
-            <td class=cell><input class="cell-input" id="row-3-col-0" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-3-col-1" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-3-col-2" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-3-col-3" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-3-col-4" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-3-col-5" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-3-col-6" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-3-col-7" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-3-col-8" type="text"></td>
-        </tr>
-
-        <tr>
-            <td class=cell><input class="cell-input" id="row-4-col-0" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-4-col-1" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-4-col-2" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-4-col-3" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-4-col-4" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-4-col-5" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-4-col-6" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-4-col-7" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-4-col-8" type="text"></td>
-        </tr>
-
-        <tr>
-            <td class=cell><input class="cell-input" id="row-5-col-0" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-5-col-1" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-5-col-2" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-5-col-3" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-5-col-4" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-5-col-5" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-5-col-6" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-5-col-7" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-5-col-8" type="text"></td>
-        </tr>
-
-        <tr>
-            <td class=cell><input class="cell-input" id="row-6-col-0" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-6-col-1" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-6-col-2" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-6-col-3" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-6-col-4" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-6-col-5" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-6-col-6" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-6-col-7" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-6-col-8" type="text"></td>
-        </tr>
-
-        <tr>
-            <td class=cell><input class="cell-input" id="row-7-col-0" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-7-col-1" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-7-col-2" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-7-col-3" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-7-col-4" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-7-col-5" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-7-col-6" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-7-col-7" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-7-col-8" type="text"></td>
-        </tr>
-
-        <tr>
-            <td class=cell><input class="cell-input" id="row-8-col-0" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-8-col-1" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-8-col-2" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-8-col-3" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-8-col-4" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-8-col-5" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-8-col-6" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-8-col-7" type="text"></td>
-            <td class=cell><input class="cell-input" id="row-8-col-8" type="text"></td>
-        </tr>
-
-    </table>
+    <header>
+        <h1 id="page-title">Sudoku Solver</h1>
+    </header>
+    <div id="solver">
+        <table id="sudoku-grid">
+            <tr class="row" id="row-0">
+                <td class=cell><input class="cell-input subgrid-0" id="row-0-col-0" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-0" id="row-0-col-1" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-0" id="row-0-col-2" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-1" id="row-0-col-3" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-1" id="row-0-col-4" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-1" id="row-0-col-5" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-2" id="row-0-col-6" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-2" id="row-0-col-7" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-2" id="row-0-col-8" type="text"></td>
+            </tr>
     
+            <tr class="row" id="row-1"></tr>
+                <td class=cell><input class="cell-input subgrid-0" id="row-1-col-0" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-0" id="row-1-col-1" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-0" id="row-1-col-2" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-1" id="row-1-col-3" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-1" id="row-1-col-4" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-1" id="row-1-col-5" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-2" id="row-1-col-6" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-2" id="row-1-col-7" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-2" id="row-1-col-8" type="text"></td>
+            </tr>
+    
+            <tr class="row" id="row-2"></tr>
+                
+                <td class=cell><input class="cell-input subgrid-0" id="row-2-col-0" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-0" id="row-2-col-1" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-0" id="row-2-col-2" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-1" id="row-2-col-3" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-1" id="row-2-col-4" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-1" id="row-2-col-5" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-2" id="row-2-col-6" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-2" id="row-2-col-7" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-2" id="row-2-col-8" type="text"></td>
+            </tr>
+    
+            <tr class="row" id="row-3"></tr>
+                <td class=cell><input class="cell-input subgrid-3" id="row-3-col-0" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-3" id="row-3-col-1" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-3" id="row-3-col-2" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-4" id="row-3-col-3" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-4" id="row-3-col-4" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-4" id="row-3-col-5" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-5" id="row-3-col-6" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-5" id="row-3-col-7" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-5" id="row-3-col-8" type="text"></td>
+            </tr>
+    
+            <tr class="row" id="row-4"></tr>
+                <td class=cell><input class="cell-input subgrid-3" id="row-4-col-0" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-3" id="row-4-col-1" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-3" id="row-4-col-2" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-4" id="row-4-col-3" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-4" id="row-4-col-4" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-4" id="row-4-col-5" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-5" id="row-4-col-6" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-5" id="row-4-col-7" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-5" id="row-4-col-8" type="text"></td>
+            </tr>
+    
+            <tr class="row" id="row-5"></tr>
+                <td class=cell><input class="cell-input subgrid-3" id="row-5-col-0" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-3" id="row-5-col-1" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-3" id="row-5-col-2" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-4" id="row-5-col-3" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-4" id="row-5-col-4" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-4" id="row-5-col-5" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-5" id="row-5-col-6" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-5" id="row-5-col-7" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-5" id="row-5-col-8" type="text"></td>
+            </tr>
+    
+            <tr class="row" id="row-6"></tr>
+                <td class=cell><input class="cell-input subgrid-6" id="row-6-col-0" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-6" id="row-6-col-1" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-6" id="row-6-col-2" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-7" id="row-6-col-3" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-7" id="row-6-col-4" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-7" id="row-6-col-5" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-8" id="row-6-col-6" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-8" id="row-6-col-7" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-8" id="row-6-col-8" type="text"></td>
+            </tr>
+    
+            <tr class="row" id="row-7"></tr>
+                <td class=cell><input class="cell-input subgrid-6" id="row-7-col-0" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-6" id="row-7-col-1" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-6" id="row-7-col-2" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-7" id="row-7-col-3" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-7" id="row-7-col-4" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-7" id="row-7-col-5" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-8" id="row-7-col-6" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-8" id="row-7-col-7" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-8" id="row-7-col-8" type="text"></td>
+            </tr>
+    
+            <tr class="row" id="row-8"></tr>
+                <td class=cell><input class="cell-input subgrid-6" id="row-8-col-0" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-6" id="row-8-col-1" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-6" id="row-8-col-2" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-7" id="row-8-col-3" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-7" id="row-8-col-4" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-7" id="row-8-col-5" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-8" id="row-8-col-6" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-8" id="row-8-col-7" type="text"></td>
+                <td class=cell><input class="cell-input subgrid-8" id="row-8-col-8" type="text"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="buttons-container">
+        <button id="solve-sudoku-button">Solve Sudoku</button>
+        <button id="view-solve-sudoku-button">View Solving</button>
+    </div>
+    
+    <footer>
+        <p>Made With 💕</p>
+        <p>By</p>
+        <p><a href="https://github.com/edagener0">edagener0</a></p>
+        <p><a href="https://github.com/sifetx">sifet</a></p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
