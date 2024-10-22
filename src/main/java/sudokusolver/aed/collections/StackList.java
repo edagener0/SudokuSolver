@@ -3,8 +3,6 @@ package sudokusolver.aed.collections;
 import java.util.Iterator;
 import sudokusolver.aed.utils.TemporalAnalysisUtils;
 
-// import java.util.function.Function;
-// import java.util.function.Consumer;
 
 public class StackList<T> implements IStack<T>
 {
@@ -131,7 +129,8 @@ public class StackList<T> implements IStack<T>
 
 
 	public static void main(String[] args) {
-		int iterations = 15;
+		final int ITERATIONS_STACKLIST = 15;
+		final int ITERATIONS_SHITTYSTACK = 8;
 
 		System.out.println("-- Test StackList method push --");
 		TemporalAnalysisUtils.runDoublingRatioTest(
@@ -143,7 +142,7 @@ public class StackList<T> implements IStack<T>
 				return stack;
 			},
 			(StackList<Integer> stack) -> stack.push(1),
-			iterations
+			ITERATIONS_STACKLIST
 		);
 
 		System.out.println("\n-- Test StackList method pop --");
@@ -156,7 +155,7 @@ public class StackList<T> implements IStack<T>
 				return stack;
 			},
 			(StackList<Integer> stack) -> stack.pop(),
-			iterations
+			ITERATIONS_STACKLIST
 		);
 
 		System.out.println("-- Test ShittyStack method push --");
@@ -169,7 +168,7 @@ public class StackList<T> implements IStack<T>
 				return stack;
 			},
 			(ShittyStack<Integer> stack) -> stack.push(1),
-			iterations
+			ITERATIONS_SHITTYSTACK
 		);
 
 		System.out.println("\n-- Test ShittyStack method pop --");
@@ -182,7 +181,7 @@ public class StackList<T> implements IStack<T>
 				return stack;
 			},
 			(ShittyStack<Integer> stack) -> stack.pop(),
-			iterations
+			ITERATIONS_SHITTYSTACK
 		);
 	}
 }
