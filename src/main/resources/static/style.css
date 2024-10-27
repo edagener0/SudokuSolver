@@ -12,13 +12,6 @@ header {
     text-align: center;
 }
 
-footer {
-    margin-top: 1%; 
-    padding: 2%;
-    background-color: #553373;
-    border: 3px solid #241531;      
-}
-
 
 #page-title {
     margin: 0;
@@ -107,29 +100,4 @@ a:link {
 
 .cell-input.subgrid-1, .cell-input.cell-input.subgrid-3, .cell-input.cell-input.cell-input.subgrid-5, .cell-input.cell-input.cell-input.subgrid-7 {
     background-color: #bebebe ;
-}
-
-
-
-
-.github-profile-link {
-    color: #ffffff ;
-}
-
-.github-profile-link:hover {
-    color: #afa3a6 ;
-}
-
-.profile {
-    width: 100%;
-    justify-content: center;
-}
-
-.profile-image:hover {
-    border: 3px solid black;
-}
-
-#profiles {
-    margin: 1%;
-    display:inline-flex;
 }

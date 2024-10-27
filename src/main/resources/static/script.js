@@ -1,4 +1,4 @@
-
+const apiURL = "https://sudokusolver-prh6.onrender.com"
 function getCells()
 {
     return document.getElementsByClassName('cell-input');
@@ -32,7 +32,7 @@ function addEventListenerToInputs()
 async function getBoardSolution(board)
 {
     const boardString = board.map(row => row.join(',')).join(';');
-    const url = `https://sudokusolver-prh6.onrender.com/api/solveBoard/?board=${encodeURIComponent(boardString)}`;
+    const url = `${apiURL}/api/solveBoard/?board=${encodeURIComponent(boardString)}`;
     try 
     {
         const response = await fetch(url,
@@ -60,7 +60,7 @@ async function getBoardSolution(board)
 async function getBoardViewSolution(board)
 {
     const boardString = board.map(row => row.join(',')).join(';');
-    const url = `https://sudokusolver-prh6.onrender.com/api/viewSolveBoard/?board=${encodeURIComponent(boardString)}`;
+    const url = `${apiURL}/api/viewSolveBoard/?board=${encodeURIComponent(boardString)}`;
     try 
     {
         const response = await fetch(url,
@@ -207,7 +207,7 @@ function addEventListenerToInputs()
 async function getBoardViewSolution(board)
 {
     const boardString = board.map(row => row.join(',')).join(';');
-    const url = `https://sudokusolver-prh6.onrender.com/api/viewSolveBoard/?board=${encodeURIComponent(boardString)}`;
+    const url = `${apiURL}/api/viewSolveBoard/?board=${encodeURIComponent(boardString)}`;
     try 
     {
         const response = await fetch(url,
