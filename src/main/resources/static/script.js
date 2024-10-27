@@ -32,7 +32,7 @@ function addEventListenerToInputs()
 async function getBoardSolution(board)
 {
     const boardString = board.map(row => row.join(',')).join(';');
-    const url = `http://127.0.0.1:8080/api/solveBoard/?board=${encodeURIComponent(boardString)}`;
+    const url = `https://sudokusolver-prh6.onrender.com/api/solveBoard/?board=${encodeURIComponent(boardString)}`;
     try 
     {
         const response = await fetch(url,
@@ -60,7 +60,7 @@ async function getBoardSolution(board)
 async function getBoardViewSolution(board)
 {
     const boardString = board.map(row => row.join(',')).join(';');
-    const url = `http://127.0.0.1:8080/api/viewSolveBoard/?board=${encodeURIComponent(boardString)}`;
+    const url = `https://sudokusolver-prh6.onrender.com/api/viewSolveBoard/?board=${encodeURIComponent(boardString)}`;
     try 
     {
         const response = await fetch(url,
