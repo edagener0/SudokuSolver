@@ -203,33 +203,6 @@ function addEventListenerToInputs()
 }
 
 
-async function getBoardSolution(board)
-{
-    const boardString = board.map(row => row.join(',')).join(';');
-    const url = `http://127.0.0.1:8080/api/solveBoard/?board=${encodeURIComponent(boardString)}`;
-    try 
-    {
-        const response = await fetch(url,
-            {
-                method: "GET",
-                headers:
-                {
-                    "Content-Type": "application/json",
-                },
-            }
-        )
-        if (!response.ok)
-        {
-            throw new Error(`Couldn't get board solution: ${response.statusText}`);
-        }
-        const data = await response.json();
-        return data.board
-    }   
-    catch (error) 
-    {
-        console.error("Error:", error)
-    }
-}
 
 async function getBoardViewSolution(board)
 {
