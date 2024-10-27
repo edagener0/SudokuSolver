@@ -1,0 +1,135 @@
+body {
+    background-color: #4b3038;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+header {
+    margin: 0;
+    background-color: #843c54;
+    padding: 2%;
+    border: 3px solid #1E1316;
+    text-align: center;
+}
+
+footer {
+    margin-top: 1%; 
+    padding: 2%;
+    background-color: #553373;
+    border: 3px solid #241531;      
+}
+
+
+#page-title {
+    margin: 0;
+    color: #ffffff  ;
+    font-size: 3rem;
+}
+
+#solver {
+    margin-top: 2.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #553373;
+    border: 3px solid #241531;
+}
+
+
+
+#sudoku-grid {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding: 0.05%;
+    border: 5px solid #ba9ad3;
+   
+}
+
+#buttons-container {
+    margin-top: 1%;
+    background-color: #553373;
+    border: 3px solid #241531;  
+    padding: 2.5%;
+    display: flexbox;
+}
+
+#solve-sudoku-button, #reset-sudoku-button, #view-solve-sudoku-button {
+    width: 15%;
+    font-size: 1.0rem;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    background-color: #243a52;
+    border: 2px solid #152231;
+    color: #ffffff;
+}
+
+
+#solve-sudoku-button:hover, #reset-sudoku-button:hover, #view-solve-sudoku-button:hover {
+    background: #4F6174;
+}
+
+
+a:link {
+    text-decoration:line-through;
+}
+.made-by-text {
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+.cell {
+
+    width: 50px;
+
+    height: 50px;
+
+    padding-right: 5px;
+}
+.cell:hover {
+    background-color: #919CA8 ;
+}
+
+.cell-input {
+    margin: 0;
+    color: #553373;
+    border: 0;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+}
+
+
+.cell-input.subgrid-0, .cell-input.cell-input.subgrid-2, .cell-input.cell-input.cell-input.subgrid-4, .cell-input.cell-input.cell-input.subgrid-6, .cell-input.cell-input.cell-input.subgrid-8 {
+    background-color: #9B8C90;
+}
+
+.cell-input.subgrid-1, .cell-input.cell-input.subgrid-3, .cell-input.cell-input.cell-input.subgrid-5, .cell-input.cell-input.cell-input.subgrid-7 {
+    background-color: #bebebe ;
+}
+
+
+
+
+.github-profile-link {
+    color: #ffffff ;
+}
+
+.github-profile-link:hover {
+    color: #afa3a6 ;
+}
+
+.profile {
+    width: 100%;
+    justify-content: center;
+}
+
+.profile-image:hover {
+    border: 3px solid black;
+}
+
+#profiles {
+    margin: 1%;
+    display:inline-flex;
+}

@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SudokuSolver</title>
-    <style>
-        @import "style.css";
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -126,15 +124,28 @@
     </div>
 
     <div id="buttons-container">
-        <button id="solve-sudoku-button">Solve Sudoku</button>
-        <button id="view-solve-sudoku-button">View Solving</button>
+        <button id="solve-sudoku-button", onclick="solveBoard()">Solve</button>
+        <button id="reset-sudoku-button", onclick="resetBoardInput()">Reset</button>
+        <button id="view-solve-sudoku-button", onclick="solveBoardWithView()">View  </button>
     </div>
     
     <footer>
-        <p>Made With 💕</p>
-        <p>By</p>
-        <p><a href="https://github.com/edagener0">edagener0</a></p>
-        <p><a href="https://github.com/sifetx">sifet</a></p>
+        <p class="made-by-text">Made With 💕</p>
+        <p class="made-by-text">By</p>
+        <div id="profiles">
+            <div class="profile" id="edagener0-profile">
+                <a class="profile-button" href="https://github.com/edagener0">
+                    <img class="profile-image" src="https://avatars.githubusercontent.com/u/153123218?v=4" alt="edagener0-github-profile-image" width="200px" height="200px" >
+                </a>
+            </div>
+            <div class="profile" id="sifet-profile">
+                <a class="profile-button" href="https://github.com/sifetx">
+                    <img class="profile-image" src="https://avatars.githubusercontent.com/u/54966900?v=4" alt="sifetx-github-profile-image" width="200px" height="200px" >
+                </a>
+            </div>
+        </div>
+        
+    
     </footer>
     <script src="script.js"></script>
 </body>

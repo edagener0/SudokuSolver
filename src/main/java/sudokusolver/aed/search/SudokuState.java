@@ -251,6 +251,40 @@ public class SudokuState
         return null;
     }
 
+    public static ArrayList<SudokuState> getBacktrackingSearchSudokuStates(SudokuState initialState)
+    {
+        return SudokuState.getBacktrackingSearchSudokuStates(initialState, new StackList<SudokuState>());
+    }
+    private static ArrayList<SudokuState> getBacktrackingSearchSudokuStates(SudokuState initialState,
+            IStack<SudokuState> stack)
+    {
+        ArrayList<SudokuState> sudokuStates = new ArrayList<SudokuState>();
+        
+        stack.push(initialState);
+        sudokuStates.add(initialState.clone());
+
+        while (!stack.isEmpty())
+        {
+            SudokuState lastState = stack.peek();
+            sudokuStates.add(lastState.clone());
+
+            if (lastState.isSolution()) {
+                return sudokuStates;
+            }
+
+            List<SudokuState> nextStages = stack.pop().generateValidNextStates();
+
+            if (nextStages.size() > 0)
+            {
+                for (SudokuState i : nextStages)
+                {
+                    stack.push(i);
+                }
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Método estático para realizar a busca por retrocesso (Backtracking) no estado do Sudoku.
@@ -315,21 +349,6 @@ public class SudokuState
         return s;
     }
 
-
-    public static void main(String[] args)
-    {
-        int iterations = 6;
-        System.out.println("Backtracking Search Stacklist");
-        TemporalAnalysisUtils.runDoublingRatioTest((complexity) -> generateSudokuExample(complexity), 
-        (state) -> SudokuState.backtrackingSearch(state, new StackList<SudokuState>()), 
-        iterations);
-
-        System.out.println("Backtracking Search ShittyStack");
-        TemporalAnalysisUtils.runDoublingRatioTest((complexity) -> generateSudokuExample(complexity), 
-        (state) -> SudokuState.backtrackingSearch(state, new ShittyStack<SudokuState>()), 
-        iterations);
-    }
-
     public static SudokuState generateSudokuExample(int complexity) {
         int[][] board  = {
             {1, 2, 3, 4, 5, 6, 7, 8, 9},
@@ -360,6 +379,20 @@ public class SudokuState
 
         SudokuState state = new SudokuState(board);
         return state;
+    }
+
+    public static void main(String[] args)
+    {
+        int iterations = 6;
+        System.out.println("Backtracking Search Stacklist");
+        TemporalAnalysisUtils.runDoublingRatioTest((complexity) -> generateSudokuExample(complexity), 
+        (state) -> SudokuState.backtrackingSearch(state, new StackList<SudokuState>()), 
+        iterations);
+
+        System.out.println("Backtracking Search ShittyStack");
+        TemporalAnalysisUtils.runDoublingRatioTest((complexity) -> generateSudokuExample(complexity), 
+        (state) -> SudokuState.backtrackingSearch(state, new ShittyStack<SudokuState>()), 
+        iterations);
     }
 }
 
