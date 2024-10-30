@@ -105,9 +105,9 @@ public class SudokuState
 
     private static boolean areSubGridsValid(int[][] board)
     {
-        for (int row = 1; row < N; row += 3)
+        for (int row = 0; row < N; row += 3)
         {
-            for (int col = 1; col < N; col += 3)
+            for (int col = 0; col < N; col += 3)
             {
                 if (!isSubGridValid(board, row, col)) return false;
             }

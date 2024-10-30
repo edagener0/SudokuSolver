@@ -38,6 +38,7 @@ public class Solver {
     public void solve() {
         try {
             this.sudokuBoard = this.getBoardFromWindow(this.window);
+            if (!SudokuState.isBoardValid(this.sudokuBoard)) throw new InvalidBoard();
             this.sudokuState = new SudokuState(this.sudokuBoard);
 
             long startTime, endTime;
