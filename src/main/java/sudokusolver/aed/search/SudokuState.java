@@ -90,7 +90,7 @@ public class SudokuState
         {
             for (int j = subGridCol; j <= subGridCol + 2; j++)
             {
-                int digit = board[row][col];
+                int digit = board[i][j];
 
                 if (digit-- == 0) continue;
 
