@@ -48,6 +48,106 @@ public class SudokuState
         return this.board[row][column];
     }
 
+    private static boolean isRowValid(int[][] board, int row)
+    {
+        boolean[] isDigitInRow = new boolean[N];
+
+        for (int i = 0; i < N; i++)
+        {
+            int digit = board[row][i];
+
+            if (digit-- == 0) continue;
+
+            if (isDigitInRow[digit]) return false;
+            isDigitInRow[digit] = true;
+        }
+        return true;
+    }
+
+    private static boolean isColumnValid(int[][] board, int col)
+    {
+        boolean[] isDigitInCol = new boolean[N];
+
+        for (int i = 0; i < N; i++)
+        {
+            int digit = board[i][col];
+
+            if (digit-- == 0) continue;
+
+            if (isDigitInCol[digit]) return false;
+            isDigitInCol[digit] = true;
+        }
+        return true;
+    }
+
+    private static boolean isSubGridValid(int[][] board, int row, int col)
+    {
+        boolean[] isDigitInSubgrid = new boolean[N];
+
+        int subGridRow = row - row % 3, subGridCol = col - col % 3;
+
+        for (int i = subGridRow; i <= subGridRow + 2; i++)
+        {
+            for (int j = subGridCol; j <= subGridCol + 2; j++)
+            {
+                int digit = board[row][col];
+
+                if (digit-- == 0) continue;
+
+                if (isDigitInSubgrid[digit]) return false;
+
+                isDigitInSubgrid[digit] = true;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean areSubGridsValid(int[][] board)
+    {
+        for (int row = 1; row < N; row += 3)
+        {
+            for (int col = 1; col < N; col += 3)
+            {
+                if (!isSubGridValid(board, row, col)) return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean isBoardSizeValid(int[][] board)
+    {
+        if (board.length != N) return false;
+
+        for (int i = 0; i < N; i++)
+        {
+            if (board[i].length != N) return false;
+        }
+        return true;
+
+    }
+    public static boolean isBoardValid(int[][] board)
+    {
+        // Check if board size is invalid
+        if (!isBoardSizeValid(board)) return false;
+        // Check rows
+        for (int i = 0; i < N; i++)
+        {
+            if (!isRowValid(board, i)) return false;
+        }
+
+        // Check cols
+        for (int i = 0; i < N; i++)
+        {
+            if (!isColumnValid(board, i)) return false;
+        }
+
+        // Check subGrids
+        if (!areSubGridsValid(board)) return false;
+
+        return true;
+    }
 
     private boolean isValueInRow(int value, int row)
     {
@@ -102,9 +202,9 @@ public class SudokuState
      */
     public boolean isSolution()
     {
-        boolean[][] rows = new boolean[N][9];
-        boolean[][] cols = new boolean[N][9];
-        boolean[][] subGrids = new boolean[N][9];
+        boolean[][] rows = new boolean[N][N];
+        boolean[][] cols = new boolean[N][N];
+        boolean[][] subGrids = new boolean[N][N];
 
         for (int row = 0; row < N; row++)
         {
@@ -207,7 +307,7 @@ public class SudokuState
                     continue;
                 }
 
-                for (int d = 1; d <= 9; d++)
+                for (int d = 1; d <= N; d++)
                 {
                     SudokuState nextState = generateNextStateRetuningNull(row, col, d);
                     if (nextState == null)
@@ -368,8 +468,8 @@ public class SudokuState
         // TemporalAnalysisUtils, e nao pode ser alterado
         int newComplexity = complexity / 125;
         
-        for (int i = 0; zerosCount < newComplexity && i < 9; i++) {
-            for (int j = 0; zerosCount < newComplexity && j < 9; j++) {
+        for (int i = 0; zerosCount < newComplexity && i < N; i++) {
+            for (int j = 0; zerosCount < newComplexity && j < N; j++) {
                 if (i % 2 == 0 || j % 2 == 0) {
                     board[i][j] = 0;
                     zerosCount++;

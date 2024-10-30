@@ -1,4 +1,5 @@
-const apiURL = "https://sudokusolver-prh6.onrender.com"
+//const apiURL = "https://sudokusolver-prh6.onrender.com"
+const apiURL = ""
 function getCells()
 {
     return document.getElementsByClassName('cell-input');
@@ -358,8 +359,10 @@ function areRowsValid(board)
         ]
         for (let col = 0; col < 9; col++)
         {
-            if (board[row][col] == 0) continue;
-            if (digits_presence[board[row][col]] == true) return false;
+            let digit = board[row][col];
+
+            if (digit-- == 0) continue;
+            if (digits_presence[board[row][col]]) return false;
             digits_presence[board[row][col]] = true
         }
     }
@@ -384,9 +387,10 @@ function areColsValid(board)
         ]
         for (let row = 0; row < 9; row++)
         {
-            if (board[row][col] == 0) continue;
+            let digit = board[row][col];
+            if (digit-- == 0) continue;
 
-            if (digits_presence[board[row][col]] == true) return false;
+            if (digits_presence[board[row][col]]) return false;
             digits_presence[board[row][col]] = true;
         }
     }
@@ -413,15 +417,11 @@ function isSubGridValid(board, row, col)
     {
         for (let j = subGridCol; j < subGridCol + 3; j++)
         {
-            if (board[i][j] != 0)
-            {
-                if (digits_presence[board[i][j]] == true)
-                {
-                    return false;
-                }
-                digits_presence[board[i][j]] = true;
-
-            }
+            let digit = board[i][j];
+            if (digit-- == 0) continue;
+           
+            if (digits_presence[board[i][j]]) return false;
+            digits_presence[board[i][j]] = true;
         }
     }
     return true;    
@@ -433,7 +433,7 @@ function areSubGridsValid(board)
     {
         for (let col = 0; col < 9; col += 3)
         {
-            if (isSubGridValid(board, row, col) == false) return false;
+            if (!isSubGridValid(board, row, col)) return false;
         }
     }
     return true;

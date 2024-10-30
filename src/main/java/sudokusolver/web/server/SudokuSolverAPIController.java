@@ -11,31 +11,44 @@ import sudokusolver.aed.search.SudokuState;
 @RestController
 public class SudokuSolverAPIController
 {
-
+    private final int N = 9;
     public int[][] getBoardFromString(String board_s)
     {
         String[] rows = board_s.split(";");
-        int[][] board = new int[9][9];
+        int[][] board = new int[N][N];
 
-        for (int row = 0; row < 9; row++)
+        try
         {
-            String[] cols = rows[row].split(",");
-
-            for (int col = 0; col < 9; col++)
+            for (int row = 0; row < N; row++)
             {
-                board[row][col] = Integer.parseInt(cols[col]);
-            }
-        }
+                if (rows.length != N) throw new Exception("Invalid board length.");
+                String[] cols = rows[row].split(",");
+                if (cols.length != N) throw new Exception("Invalid row length in board.");
 
-        return board;
+                for (int col = 0; col < N; col++)
+                {
+                    board[row][col] = Integer.parseInt(cols[col]);
+                    if (board[row][col] < 0 || board[row][col] > N) throw new Exception("Invalid digits on board."); 
+                }
+            }
+            if (!SudokuState.isBoardValid(board)) throw new Exception("Invalid digits on board.");
+            return board;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
     @RequestMapping(path = "/api/solveBoard/", method = RequestMethod.GET)
     public SudokuState getSudokuSolution(@RequestParam(name = "board") String board_s)
     {
-
         int[][] board = getBoardFromString(board_s);
 
+        if (board == null)
+        {
+            return null;
+        }
 
         SudokuState sudokuState = new SudokuState(board);
 
@@ -48,11 +61,16 @@ public class SudokuSolverAPIController
     {
         int[][] board = getBoardFromString(board_s);
 
+        if (board == null)
+        {
+            return null;
+        }
+
         SudokuState initialState = new SudokuState(board);
 
-        ArrayList<SudokuState> sudokuStates = SudokuState.getBacktrackingSearchSudokuStates(initialState);
+        ArrayList<SudokuState> sudokuStates =
+                SudokuState.getBacktrackingSearchSudokuStates(initialState);
 
         return sudokuStates;
     }
-
 }
